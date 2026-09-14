@@ -99,13 +99,14 @@ nav a:hover {
 
     position: relative;
     z-index: 2;
+	top: 16cm;
 }
 
 .hero-text a {
     display: inline-block;
 
     position: relative;
-    top: 8.5cm;
+    top: 1.5cm;
 }
 
 /* HOMEPAGE SECTIE TITELS */
