@@ -2238,7 +2238,9 @@ img.protected-image {
     
 
     .faq-item summary {
-        padding: 18px 50
+    padding: 18px 50px 18px 18px;
+    font-size: 15px;
+	}
 
 		/* =========================================
    MOBILE NAVIGATION
