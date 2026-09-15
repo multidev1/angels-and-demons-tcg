@@ -1558,3 +1558,50 @@ img.protected-image {
         line-height: 35px;
     }
 }
+
+.monster-card-explanation {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.monster-card-text {
+    flex: 1;
+}
+
+.monster-card-image {
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.monster-card-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* =========================================
+   CARD EXPLANATIONS
+========================================= */
+
+.card-explanation {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    margin: 25px 0 40px;
+}
+
+.card-explanation-text {
+    flex: 1;
+}
+
+.card-explanation-image {
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.card-explanation-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}

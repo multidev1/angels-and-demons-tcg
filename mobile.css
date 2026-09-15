@@ -537,3 +537,20 @@ video {
     }
 
 }
+
+/* =========================================
+   CARD EXPLANATIONS — MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .card-explanation {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .card-explanation-image {
+        width: 180px;
+    }
+
+}
