@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://multidev1.github.io/angels-and-demons-tcg/sitemap.xml
