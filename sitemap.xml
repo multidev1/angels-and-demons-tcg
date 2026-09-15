@@ -3,27 +3,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://JOUWDOMEIN.be/</loc>
+        <loc>https://multidev1.github.io/angels-and-demons-tcg/</loc>
     </url>
 
     <url>
-        <loc>https://JOUWDOMEIN.be/cards.html</loc>
+        <loc>https://multidev1.github.io/angels-and-demons-tcg/cards.html</loc>
     </url>
 
     <url>
-        <loc>https://JOUWDOMEIN.be/rules.html</loc>
+        <loc>https://multidev1.github.io/angels-and-demons-tcg/rules.html</loc>
     </url>
 
     <url>
-        <loc>https://JOUWDOMEIN.be/howtoplay.html</loc>
+        <loc>https://multidev1.github.io/angels-and-demons-tcg/howtoplay.html</loc>
     </url>
 
     <url>
-        <loc>https://JOUWDOMEIN.be/shop.html</loc>
+        <loc>https://multidev1.github.io/angels-and-demons-tcg/shop.html</loc>
     </url>
 
     <url>
-        <loc>https://JOUWDOMEIN.be/set1.html</loc>
+        <loc>https://multidev1.github.io/angels-and-demons-tcg/set1.html</loc>
+    </url>
+
+    <url>
+        <loc>https://multidev1.github.io/angels-and-demons-tcg/starterdecks.html</loc>
     </url>
 
 </urlset>
