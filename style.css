@@ -1605,3 +1605,400 @@ img.protected-image {
     height: auto;
     display: block;
 }
+
+/* =========================================
+   ABOUT THE GAME PAGE
+========================================= */
+
+.about-page {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 25px 80px;
+    color: #ffffff;
+}
+
+
+/* =========================================
+   ABOUT HERO
+========================================= */
+
+.about-hero {
+    text-align: center;
+    padding: 70px 30px 80px;
+    margin-bottom: 30px;
+}
+
+.about-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.section-label {
+    color: #d4af37;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.about-hero h1 {
+    margin: 0 0 20px;
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+.about-hero-text {
+    color: #d4af37;
+    font-size: 25px;
+    font-weight: 700;
+    margin: 0 0 20px;
+}
+
+.about-hero-description {
+    max-width: 750px;
+    margin: 0 auto;
+    color: #cccccc;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   GENERAL SECTIONS
+========================================= */
+
+.about-section {
+    background: rgba(10, 10, 10, 0.88);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 14px;
+    padding: 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.45);
+}
+
+.about-section h2 {
+    margin: 0 0 25px;
+    text-align: center;
+    color: #d4af37;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.about-section p {
+    max-width: 900px;
+    margin: 0 auto 18px;
+    color: #d0d0d0;
+    font-size: 16px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.about-section p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   FEATURE CARDS
+========================================= */
+
+.about-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 35px;
+}
+
+.about-feature-card {
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 25px 18px;
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+.about-feature-card:hover {
+    transform: translateY(-6px);
+    border-color: #d4af37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.about-feature-card h3 {
+    margin: 0 0 12px;
+    color: #ffffff;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.about-feature-card p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   ANGELS & DEMONS
+========================================= */
+
+.side-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 35px;
+}
+
+.side-card {
+    padding: 35px 25px;
+    border-radius: 12px;
+    text-align: center;
+    background: rgba(20, 20, 20, 0.95);
+    transition: 0.3s ease;
+}
+
+.side-card h3 {
+    margin: 0 0 15px;
+    font-size: 25px;
+    letter-spacing: 2px;
+}
+
+.side-card p {
+    margin: 0;
+}
+
+.angel-side {
+    border: 1px solid rgba(100, 170, 255, 0.4);
+}
+
+.angel-side h3 {
+    color: #78bfff;
+}
+
+.angel-side:hover {
+    border-color: #78bfff;
+    box-shadow: 0 0 25px rgba(100, 170, 255, 0.2);
+}
+
+.demon-side {
+    border: 1px solid rgba(220, 70, 70, 0.4);
+}
+
+.demon-side h3 {
+    color: #e65b5b;
+}
+
+.demon-side:hover {
+    border-color: #e65b5b;
+    box-shadow: 0 0 25px rgba(220, 70, 70, 0.2);
+}
+
+
+/* =========================================
+   CARD TYPES
+========================================= */
+
+.card-type-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 35px;
+}
+
+.card-type-card {
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 10px;
+    padding: 25px 20px;
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+.card-type-card:hover {
+    transform: translateY(-5px);
+    border-color: #d4af37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.18);
+}
+
+.card-type-card h3 {
+    margin: 0 0 12px;
+    color: #d4af37;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.card-type-card p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   DECK HIGHLIGHTS
+========================================= */
+
+.deck-highlight {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.deck-highlight div {
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 25px 15px;
+    text-align: center;
+}
+
+.deck-highlight strong {
+    display: block;
+    color: #d4af37;
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.deck-highlight span {
+    display: block;
+    color: #bbbbbb;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   FUTURE SECTION
+========================================= */
+
+.future-section {
+    text-align: center;
+}
+
+.future-highlight {
+    color: #d4af37 !important;
+    font-size: 24px !important;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-top: 30px !important;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.about-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.about-button {
+    display: inline-block;
+    padding: 13px 25px;
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+    color: #ffffff;
+    background: rgba(212, 175, 55, 0.08);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+}
+
+.about-button:hover {
+    color: #111111;
+    background: #d4af37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+}
+
+
+/* =========================================
+   LEARN MORE
+========================================= */
+
+.learn-more-section {
+    text-align: center;
+}
+
+.learn-more-section p {
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .about-feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-type-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .deck-highlight {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .about-page {
+        padding: 35px 15px 60px;
+    }
+
+    .about-hero {
+        padding: 45px 15px 55px;
+    }
+
+    .about-hero h1 {
+        font-size: 36px;
+    }
+
+    .about-hero-text {
+        font-size: 20px;
+    }
+
+    .about-hero-description {
+        font-size: 15px;
+    }
+
+    .about-section {
+        padding: 25px 18px;
+    }
+
+    .about-section h2 {
+        font-size: 24px;
+    }
+
+    .about-section p {
+        font-size: 15px;
+    }
+
+    .about-feature-grid,
+    .side-grid,
+    .card-type-grid,
+    .deck-highlight {
+        grid-template-columns: 1fr;
+    }
+
+}
