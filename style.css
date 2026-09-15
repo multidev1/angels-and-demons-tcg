@@ -2235,7 +2235,38 @@ img.protected-image {
 
     .faq-section h2 {
         font-size: 23px;
-    }
+    
 
     .faq-item summary {
         padding: 18px 50
+
+		/* =========================================
+   MOBILE NAVIGATION
+========================================= */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    header img {
+        width: 130px;
+    }
+
+    nav {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+    }
+
+    nav a {
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+}
