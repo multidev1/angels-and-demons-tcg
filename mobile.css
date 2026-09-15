@@ -1,0 +1,539 @@
+/* =========================================
+   ANGELS & DEMONS TCG
+   GLOBAL MOBILE RESPONSIVE STYLES
+========================================= */
+
+
+/* =========================================
+   GLOBAL MOBILE SAFETY
+========================================= */
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+video {
+    max-width: 100%;
+}
+
+
+/* =========================================
+   HEADER & NAVIGATION
+========================================= */
+
+@media (max-width: 900px) {
+
+    header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    header img {
+        width: 130px;
+    }
+
+    header h1 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+    }
+
+    nav a {
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+@media (max-width: 900px) {
+
+    .hero {
+        min-height: 850px;
+        background-position: center;
+    }
+
+    .hero-text {
+        width: 100%;
+        max-width: 90%;
+        top: 0;
+        margin: 0 auto;
+    }
+
+    .hero-text a {
+        top: 30px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .hero {
+        min-height: 750px;
+    }
+
+    .hero-text {
+        max-width: 92%;
+    }
+
+}
+
+
+/* =========================================
+   HOME VIDEO
+========================================= */
+
+@media (max-width: 768px) {
+
+    .home-video {
+        width: 100%;
+        padding: 20px 15px 25px 15px;
+    }
+
+    .home-video video {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        border-radius: 10px;
+    }
+
+}
+
+
+/* =========================================
+   GENERAL PAGE CONTENT
+========================================= */
+
+@media (max-width: 768px) {
+
+    .cards-page,
+    .set-page,
+    .rules-page,
+    .how-to-play-page,
+    .shop-page,
+    .starter-decks-page {
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    h1 {
+        max-width: 100%;
+        word-wrap: break-word;
+    }
+
+    p {
+        max-width: 100%;
+        word-wrap: break-word;
+    }
+
+}
+
+
+/* =========================================
+   CARDS PAGE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .set-menu {
+        grid-template-columns: repeat(2, minmax(0, 280px));
+        gap: 25px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .set-menu {
+        grid-template-columns: 1fr;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    .set-card img {
+        height: auto;
+        aspect-ratio: 750 / 1050;
+        object-fit: cover;
+    }
+
+    .set-card h2 {
+        font-size: 21px;
+    }
+
+}
+
+
+/* =========================================
+   SET 1 CARD DATABASE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .card-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 15px 10px;
+        width: 100%;
+    }
+
+    .card-item img {
+        width: 100%;
+        height: auto;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 10px;
+    }
+
+    .card-item img {
+        width: 100%;
+        height: auto;
+    }
+
+    .card-item p {
+        font-size: 12px;
+        line-height: 1.4;
+        margin-top: 7px;
+        word-break: normal;
+    }
+
+}
+
+
+/* =========================================
+   CARD DATABASE SEARCH
+========================================= */
+
+@media (max-width: 768px) {
+
+    .card-database-controls {
+        width: 100%;
+        padding: 0;
+        margin: 25px auto 35px auto;
+        box-sizing: border-box;
+    }
+
+    #cardSearch {
+        width: 100%;
+        max-width: none;
+        padding: 13px 15px;
+        font-size: 15px;
+        box-sizing: border-box;
+    }
+
+    .card-filters {
+        width: 100%;
+        gap: 7px;
+        margin-top: 18px;
+    }
+
+    .card-filter {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+
+}
+
+
+/* =========================================
+   CARD LIGHTBOX
+========================================= */
+
+@media (max-width: 768px) {
+
+    .card-lightbox {
+        padding: 15px;
+    }
+
+    .card-lightbox img {
+        max-width: 94vw;
+        max-height: 82vh;
+        width: auto;
+        height: auto;
+    }
+
+    .card-lightbox-close {
+        top: 12px;
+        right: 12px;
+        width: 42px;
+        height: 42px;
+        font-size: 27px;
+        line-height: 37px;
+    }
+
+}
+
+
+/* =========================================
+   RULES
+========================================= */
+
+@media (max-width: 768px) {
+
+    .rules-page h1 {
+        font-size: 30px;
+    }
+
+    .rules-warning {
+        font-size: 16px;
+    }
+
+    .rules-subtitle {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .rules-table-of-contents {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 20px 15px;
+    }
+
+    .rules-table-of-contents h2 {
+        font-size: 23px;
+    }
+
+    .rules-table-of-contents a {
+        font-size: 15px;
+    }
+
+    .rule-section {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 20px 17px;
+        margin-bottom: 25px;
+    }
+
+    .rule-section h2 {
+        font-size: 21px;
+        line-height: 1.3;
+    }
+
+    .rule-section p {
+        font-size: 15px;
+        line-height: 1.65;
+    }
+
+}
+
+
+/* =========================================
+   HOW TO PLAY
+========================================= */
+
+@media (max-width: 768px) {
+
+    .how-to-play-page {
+        width: 100%;
+        padding: 35px 15px;
+        box-sizing: border-box;
+    }
+
+    .how-to-play-page h1 {
+        font-size: 30px;
+    }
+
+    .how-to-play-intro {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 35px;
+    }
+
+    .how-to-play-toc {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 20px 15px;
+    }
+
+    .how-to-play-toc h2 {
+        font-size: 23px;
+    }
+
+    .how-to-play-toc a {
+        font-size: 15px;
+    }
+
+    .how-to-play-section img {
+        width: 100%;
+        height: auto;
+    }
+
+}
+
+
+/* =========================================
+   SHOP
+========================================= */
+
+@media (max-width: 768px) {
+
+    .shop-page {
+        padding: 35px 15px;
+    }
+
+    .shop-page h1 {
+        font-size: 31px;
+    }
+
+    .shop-intro {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 35px;
+    }
+
+    .shop-grid {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .shop-category {
+        width: 100% !important;
+        min-height: 0;
+        padding: 25px 18px;
+        box-sizing: border-box;
+    }
+
+    .shop-category h2 {
+        font-size: 23px;
+    }
+
+    .shop-category p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+}
+
+
+/* =========================================
+   STARTER DECKS
+========================================= */
+
+@media (max-width: 768px) {
+
+    .starter-decks-page {
+        padding: 35px 15px;
+    }
+
+    .starter-decks-page h1 {
+        font-size: 31px;
+    }
+
+    .starter-decks-intro {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 35px;
+    }
+
+    .starter-decks-grid {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 25px;
+    }
+
+    .starter-deck-card {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 20px 15px;
+    }
+
+    .starter-deck-image {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .starter-deck-card h2 {
+        font-size: 24px;
+    }
+
+    .starter-deck-card p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .starter-deck-button {
+        padding: 11px 20px;
+    }
+
+}
+
+
+/* =========================================
+   BACK TO TOP
+========================================= */
+
+@media (max-width: 768px) {
+
+    .back-to-top {
+        width: 44px;
+        height: 44px;
+        right: 12px;
+        bottom: 12px;
+        font-size: 21px;
+    }
+
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+    header {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    header img {
+        width: 115px;
+    }
+
+    nav {
+        gap: 8px 13px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    .card-grid {
+        gap: 15px 8px;
+    }
+
+    .card-item p {
+        font-size: 11px;
+    }
+
+    .card-filter {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+
+}
