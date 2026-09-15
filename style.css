@@ -2002,3 +2002,240 @@ img.protected-image {
     }
 
 }
+
+/* =========================================
+   FAQ PAGE
+========================================= */
+
+.faq-page {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 25px 80px;
+    color: #ffffff;
+}
+
+
+/* =========================================
+   FAQ HERO
+========================================= */
+
+.faq-hero {
+    text-align: center;
+    padding: 60px 20px 70px;
+}
+
+.faq-hero .section-label {
+    color: #d4af37;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.faq-hero h1 {
+    margin: 0 0 20px;
+    color: #ffffff;
+    font-size: 46px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.faq-hero p:last-child {
+    margin: 0 auto;
+    max-width: 700px;
+    color: #cccccc;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   FAQ SECTIONS
+========================================= */
+
+.faq-section {
+    background: rgba(10, 10, 10, 0.88);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 14px;
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.45);
+}
+
+.faq-section h2 {
+    margin: 0 0 25px;
+    text-align: center;
+    color: #d4af37;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+
+/* =========================================
+   FAQ ITEMS
+========================================= */
+
+.faq-item {
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 9px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: 0.3s ease;
+}
+
+.faq-item:last-child {
+    margin-bottom: 0;
+}
+
+.faq-item:hover {
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.12);
+}
+
+
+/* =========================================
+   FAQ QUESTION
+========================================= */
+
+.faq-item summary {
+    position: relative;
+    cursor: pointer;
+    list-style: none;
+    padding: 20px 55px 20px 20px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    transition: 0.3s ease;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: "+";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #d4af37;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.faq-item[open] summary::after {
+    content: "−";
+}
+
+.faq-item[open] summary {
+    color: #d4af37;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+
+/* =========================================
+   FAQ ANSWER
+========================================= */
+
+.faq-answer {
+    padding: 20px 25px 22px;
+}
+
+.faq-answer p {
+    margin: 0 0 12px;
+    color: #cccccc;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.faq-answer p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   FAQ FINAL SECTION
+========================================= */
+
+.faq-final {
+    text-align: center;
+}
+
+.faq-final p {
+    margin-bottom: 0;
+    color: #cccccc;
+    font-size: 16px;
+}
+
+
+/* =========================================
+   FAQ BUTTONS
+========================================= */
+
+.faq-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.faq-button {
+    display: inline-block;
+    padding: 13px 25px;
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+    background: rgba(212, 175, 55, 0.08);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+}
+
+.faq-button:hover {
+    background: #d4af37;
+    color: #111111;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .faq-page {
+        padding: 35px 15px 60px;
+    }
+
+    .faq-hero {
+        padding: 45px 10px 50px;
+    }
+
+    .faq-hero h1 {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .faq-hero p:last-child {
+        font-size: 15px;
+    }
+
+    .faq-section {
+        padding: 22px 15px;
+        border-radius: 10px;
+    }
+
+    .faq-section h2 {
+        font-size: 23px;
+    }
+
+    .faq-item summary {
+        padding: 18px 50
