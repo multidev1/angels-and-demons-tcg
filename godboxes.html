@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>God Boxes | Angels & Demons TCG</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =========================
+           GOD BOXES PAGE
+        ========================= */
+
+        .godboxes-page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px 100px;
+        }
+
+        /* HERO */
+
+        .godboxes-hero {
+            text-align: center;
+            padding: 70px 20px 80px;
+        }
+
+        .godboxes-label {
+            color: #d4af37;
+            font-size: 14px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .godboxes-hero h1 {
+            font-size: 52px;
+            margin: 0 0 20px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .godboxes-hero p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #ccc;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* SET */
+
+        .god-set {
+            margin-top: 40px;
+        }
+
+        .god-set-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .god-set-label {
+            color: #5dade2;
+            font-size: 14px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .god-set-header h2 {
+            font-size: 36px;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        /* GRID */
+
+        .god-product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 35px;
+        }
+
+        /* PRODUCT CARD */
+
+        .god-product-card {
+            background: rgba(10, 10, 10, 0.92);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .god-product-card:hover {
+            transform: translateY(-6px);
+            border-color: #d4af37;
+            box-shadow:
+                0 0 15px rgba(212, 175, 55, 0.4),
+                0 0 35px rgba(212, 175, 55, 0.15);
+        }
+
+        /* BADGE */
+
+        .god-product-badge {
+            text-align: center;
+            background: #111;
+            color: #d4af37;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            padding: 12px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        /* IMAGE PLACEHOLDER */
+
+        .god-product-image-placeholder {
+            width: 100%;
+            height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(212, 175, 55, 0.12),
+                    rgba(0, 0, 0, 0.95) 70%
+                );
+            color: #777;
+            font-size: 24px;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        /* CONTENT */
+
+        .god-product-content {
+            padding: 30px;
+        }
+
+        .god-product-type {
+            color: #5dade2;
+            font-size: 13px;
+            letter-spacing: 3px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .god-product-content h3 {
+            font-size: 28px;
+            margin: 0 0 15px;
+        }
+
+        .god-product-content > p {
+            color: #bbb;
+            line-height: 1.6;
+        }
+
+        /* INSIDE BOX */
+
+        .god-box-inside {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+        }
+
+        .god-box-inside h4 {
+            margin: 0 0 15px;
+            color: #d4af37;
+            font-size: 15px;
+            letter-spacing: 2px;
+        }
+
+        .god-box-inside ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .god-box-inside li {
+            color: #ccc;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        /* PRICE */
+
+        .god-product-price {
+            margin-top: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        /* STATUS */
+
+        .god-product-status {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 9px 16px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            color: #aaa;
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        /* INFORMATION */
+
+        .godboxes-information {
+            margin-top: 100px;
+            padding: 45px 35px;
+            text-align: center;
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid rgba(93, 173, 226, 0.25);
+            border-radius: 14px;
+        }
+
+        .godboxes-information h2 {
+            margin-top: 0;
+            font-size: 30px;
+        }
+
+        .godboxes-information p {
+            max-width: 850px;
+            margin: 15px auto;
+            color: #bbb;
+            line-height: 1.7;
+        }
+
+        /* BACK BUTTON */
+
+        .godboxes-back {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .godboxes-back a {
+            display: inline-block;
+            padding: 14px 28px;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: 0.3s ease;
+        }
+
+        .godboxes-back a:hover {
+            background: #d4af37;
+            color: #111;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 768px) {
+
+            .godboxes-page {
+                padding: 40px 15px 70px;
+            }
+
+            .godboxes-hero {
+                padding: 45px 10px 55px;
+            }
+
+            .godboxes-hero h1 {
+                font-size: 34px;
+                line-height: 1.2;
+            }
+
+            .godboxes-hero p {
+                font-size: 15px;
+            }
+
+            .god-set-header h2 {
+                font-size: 28px;
+            }
+
+            .god-product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .god-product-image-placeholder {
+                height: 280px;
+            }
+
+            .god-product-content {
+                padding: 22px;
+            }
+
+            .god-product-content h3 {
+                font-size: 24px;
+            }
+
+            .godboxes-information {
+                padding: 30px 20px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="site-header">
+
+    <div class="header-container">
+
+        <a href="index.html" class="logo-link">
+            <img src="logo.png"
+                 alt="Angels & Demons TCG"
+                 class="site-logo">
+        </a>
+
+        <nav class="main-nav">
+
+            <a href="index.html">Home</a>
+
+            <a href="cards.html">Cards</a>
+
+            <a href="rules.html">TCG Rules</a>
+
+            <a href="howtoplay.html">How To Play</a>
+
+            <a href="shop.html">Shop</a>
+
+            <a href="faq.html">FAQ</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     NEON BACKGROUND
+========================= -->
+
+<div class="neon-background">
+
+    <div class="neon-dot blue"></div>
+    <div class="neon-dot gold"></div>
+    <div class="neon-dot red"></div>
+    <div class="neon-dot green"></div>
+    <div class="neon-dot purple"></div>
+    <div class="neon-dot pink"></div>
+    <div class="neon-dot cyan"></div>
+    <div class="neon-dot silver"></div>
+
+</div>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="godboxes-page">
+
+
+    <!-- HERO -->
+
+    <section class="godboxes-hero">
+
+        <div class="godboxes-label">
+            COLLECT • HONOR • BATTLE
+        </div>
+
+        <h1>GOD BOXES</h1>
+
+        <p>
+            Discover the Gods of Angels & Demons TCG.
+            Each God Box contains powerful God cards and Booster Packs
+            to expand your collection and your deck.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         SET 1
+    ========================= -->
+
+    <section class="god-set">
+
+        <div class="god-set-header">
+
+            <div class="god-set-label">
+                SET 1
+            </div>
+
+            <h2>GOD BOXES</h2>
+
+        </div>
+
+
+        <div class="god-product-grid">
+
+
+            <!-- GOD 01 -->
+
+            <article class="god-product-card">
+
+                <div class="god-product-badge">
+                    SET 1
+                </div>
+
+                <div class="god-product-image-placeholder">
+                    GOD 01
+                </div>
+
+                <div class="god-product-content">
+
+                    <div class="god-product-type">
+                        GOD BOX
+                    </div>
+
+                    <h3>God 01</h3>
+
+                    <p>
+                        A special God Box dedicated to one of the
+                        legendary Gods of Angels & Demons TCG.
+                    </p>
+
+                    <div class="god-box-inside">
+
+                        <h4>WHAT'S INSIDE</h4>
+
+                        <ul>
+                            <li>1 Normal God Card</li>
+                            <li>1 Shiny Foil Bonus God Card</li>
+                            <li>5 Booster Packs</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="god-product-price">
+                        €49,99
+                    </div>
+
+                    <div class="god-product-status">
+                        AVAILABLE SOON
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- GOD 02 -->
+
+            <article class="god-product-card">
+
+                <div class="god-product-badge">
+                    SET 1
+                </div>
+
+                <div class="god-product-image-placeholder">
+                    GOD 02
+                </div>
+
+                <div class="god-product-content">
+
+                    <div class="god-product-type">
+                        GOD BOX
+                    </div>
+
+                    <h3>God 02</h3>
+
+                    <p>
+                        A special God Box dedicated to one of the
+                        legendary Gods of Angels & Demons TCG.
+                    </p>
+
+                    <div class="god-box-inside">
+
+                        <h4>WHAT'S INSIDE</h4>
+
+                        <ul>
+                            <li>1 Normal God Card</li>
+                            <li>1 Shiny Foil Bonus God Card</li>
+                            <li>5 Booster Packs</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="god-product-price">
+                        €49,99
+                    </div>
+
+                    <div class="god-product-status">
+                        AVAILABLE SOON
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- GOD 03 -->
+
+            <article class="god-product-card">
+
+                <div class="god-product-badge">
+                    SET 1
+                </div>
+
+                <div class="god-product-image-placeholder">
+                    GOD 03
+                </div>
+
+                <div class="god-product-content">
+
+                    <div class="god-product-type">
+                        GOD BOX
+                    </div>
+
+                    <h3>God 03</h3>
+
+                    <p>
+                        A special God Box dedicated to one of the
+                        legendary Gods of Angels & Demons TCG.
+                    </p>
+
+                    <div class="god-box-inside">
+
+                        <h4>WHAT'S INSIDE</h4>
+
+                        <ul>
+                            <li>1 Normal God Card</li>
+                            <li>1 Shiny Foil Bonus God Card</li>
+                            <li>5 Booster Packs</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="god-product-price">
+                        €49,99
+                    </div>
+
+                    <div class="god-product-status">
+                        AVAILABLE SOON
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- GOD 04 -->
+
+            <article class="god-product-card">
+
+                <div class="god-product-badge">
+                    SET 1
+                </div>
+
+                <div class="god-product-image-placeholder">
+                    GOD 04
+                </div>
+
+                <div class="god-product-content">
+
+                    <div class="god-product-type">
+                        GOD BOX
+                    </div>
+
+                    <h3>God 04</h3>
+
+                    <p>
+                        A special God Box dedicated to one of the
+                        legendary Gods of Angels & Demons TCG.
+                    </p>
+
+                    <div class="god-box-inside">
+
+                        <h4>WHAT'S INSIDE</h4>
+
+                        <ul>
+                            <li>1 Normal God Card</li>
+                            <li>1 Shiny Foil Bonus God Card</li>
+                            <li>5 Booster Packs</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="god-product-price">
+                        €49,99
+                    </div>
+
+                    <div class="god-product-status">
+                        AVAILABLE SOON
+                    </div>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         INFORMATION
+    ========================= -->
+
+    <section class="godboxes-information">
+
+        <h2>THE GODS AWAIT</h2>
+
+        <p>
+            God Boxes bring the legendary Gods of Angels & Demons TCG
+            together with exclusive Bonus Forms and Booster Packs.
+        </p>
+
+        <p>
+            Additional God Boxes from future Sets will be added to
+            this page as the world of Angels & Demons TCG expands.
+        </p>
+
+    </section>
+
+
+    <!-- BACK TO SHOP -->
+
+    <div class="godboxes-back">
+
+        <a href="shop.html">
+            ← BACK TO SHOP
+        </a>
+
+    </div>
+
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="site-footer">
+
+    <div class="footer-content">
+
+        <div class="footer-section">
+
+            <img src="logo.png"
+                 alt="Angels & Demons TCG"
+                 class="footer-logo">
+
+            <p>
+                Choose your side. Build your deck.
+                Battle for Soul Cores.
+            </p>
+
+        </div>
+
+
+        <div class="footer-section">
+
+            <h3>QUICK LINKS</h3>
+
+            <a href="index.html">Home</a>
+            <a href="cards.html">Cards</a>
+            <a href="rules.html">TCG Rules</a>
+            <a href="howtoplay.html">How To Play</a>
+            <a href="shop.html">Shop</a>
+            <a href="about.html">About</a>
+            <a href="faq.html">FAQ</a>
+
+        </div>
+
+
+        <div class="footer-section">
+
+            <h3>SHOP</h3>
+
+            <a href="starterdecks.html">
+                Starter Decks
+            </a>
+
+            <a href="boosterpacks.html">
+                Booster Packs
+            </a>
+
+            <a href="godboxes.html">
+                God Boxes
+            </a>
+
+        </div>
+
+
+        <div class="footer-section">
+
+            <h3>FOLLOW</h3>
+
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">YouTube</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Angels & Demons TCG. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="image-protection.js"></script>
+
+</body>
+</html>

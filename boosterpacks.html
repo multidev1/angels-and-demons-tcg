@@ -1,410 +1,1248 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Angels & Demons TCG | Booster Packs</title>
-
-    <meta name="description" content="Discover Angels & Demons TCG Booster Packs from different sets. Collect cards, expand your collection, and prepare for battle.">
-
-    <link rel="icon" type="image/png" href="logo.png">
-
-    <meta property="og:title" content="Angels & Demons TCG | Booster Packs">
-    <meta property="og:description" content="Discover Angels & Demons TCG Booster Packs from different sets.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="logo.png">
+    <title>Booster Packs | Angels & Demons TCG</title>
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mobile.css">
 
+    <style>
+
+        /* ================================
+           BOOSTER PACKS PAGE
+        ================================= */
+
+        .boosterpacks-page {
+            padding: 80px 50px 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* HERO */
+
+        .boosterpacks-hero {
+            text-align: center;
+            padding: 70px 20px 90px;
+        }
+
+        .boosterpacks-hero .boosterpacks-label {
+            color: #d4af37;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+        }
+
+        .boosterpacks-hero h1 {
+            font-size: 56px;
+            margin: 0 0 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .boosterpacks-hero p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #cccccc;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+
+        /* SET SECTION */
+
+        .booster-set {
+            margin-bottom: 80px;
+        }
+
+        .booster-set-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .booster-set-header .booster-set-label {
+            display: block;
+            color: #3498db;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .booster-set-header h2 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 38px;
+            text-transform: uppercase;
+        }
+
+
+        /* PRODUCT GRID */
+
+        .booster-product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 35px;
+        }
+
+
+        /* PRODUCT CARD */
+
+        .booster-product-card {
+            position: relative;
+            background: rgba(10, 10, 10, 0.92);
+            border: 1px solid rgba(52, 152, 219, 0.35);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.08);
+        }
+
+        .booster-product-card:hover {
+            transform: translateY(-8px);
+            border-color: #d4af37;
+            box-shadow:
+                0 0 15px rgba(212, 175, 55, 0.35),
+                0 0 35px rgba(52, 152, 219, 0.12);
+        }
+
+
+        /* BADGE */
+
+        .booster-product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 2;
+
+            padding: 7px 13px;
+
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+
+            color: #d4af37;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+
+        /* IMAGE PLACEHOLDER */
+
+        .booster-product-image-placeholder {
+            height: 330px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(52, 152, 219, 0.14),
+                    rgba(10, 10, 10, 0.95) 65%
+                );
+
+            border-bottom: 1px solid rgba(52, 152, 219, 0.25);
+
+            text-align: center;
+        }
+
+        .booster-product-image-placeholder span {
+            color: #3498db;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+        }
+
+        .booster-product-image-placeholder strong {
+            color: #ffffff;
+            font-size: 30px;
+            letter-spacing: 2px;
+        }
+
+
+        /* REAL IMAGE */
+
+        .booster-product-image {
+            width: 100%;
+            height: 330px;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        /* CONTENT */
+
+        .booster-product-content {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .booster-product-type {
+            margin: 0 0 10px;
+            color: #d4af37;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .booster-product-content h3 {
+            margin: 0 0 15px;
+            color: #ffffff;
+            font-size: 25px;
+        }
+
+        .booster-product-content > p:not(.booster-product-type) {
+            margin: 0 auto;
+            max-width: 500px;
+            color: #bbbbbb;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+
+        /* PRICE */
+
+        .booster-product-price {
+            margin-top: 25px;
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+
+        /* STATUS */
+
+        .booster-product-status {
+            display: inline-block;
+
+            margin-top: 22px;
+            padding: 10px 18px;
+
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 5px;
+
+            color: #d4af37;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+
+        /* INFORMATION */
+
+        .boosterpacks-information {
+            max-width: 900px;
+            margin: 0 auto 70px;
+
+            padding: 45px 35px;
+
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid rgba(52, 152, 219, 0.25);
+            border-radius: 14px;
+
+            text-align: center;
+        }
+
+        .boosterpacks-information h2 {
+            margin: 0 0 20px;
+            color: #ffffff;
+            font-size: 32px;
+        }
+
+        .boosterpacks-information p {
+            margin: 0;
+            color: #bbbbbb;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+
+        /* BACK BUTTON */
+
+        .boosterpacks-back {
+            text-align: center;
+        }
+
+        .boosterpacks-back a {
+            display: inline-block;
+
+            padding: 14px 28px;
+
+            border: 1px solid #3498db;
+            border-radius: 5px;
+
+            color: #ffffff;
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+
+            transition: all 0.3s ease;
+        }
+
+        .boosterpacks-back a:hover {
+            border-color: #d4af37;
+            color: #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 768px) {
+
+            .boosterpacks-page {
+                padding: 50px 15px 70px;
+            }
+
+            .boosterpacks-hero {
+                padding: 45px 10px 60px;
+            }
+
+            .boosterpacks-hero h1 {
+                font-size: 38px;
+            }
+
+            .boosterpacks-hero p {
+                font-size: 15px;
+            }
+
+            .booster-set-header h2 {
+                font-size: 30px;
+            }
+
+            .booster-product-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .booster-product-image-placeholder {
+                height: 280px;
+            }
+
+            .booster-product-image {
+                height: 280px;
+            }
+
+            .booster-product-content {
+                padding: 25px 20px;
+            }
+
+            .booster-product-content h3 {
+                font-size: 22px;
+            }
+
+            .boosterpacks-information {
+                padding: 35px 20px;
+            }
+
+            .boosterpacks-information h2 {
+                font-size: 27px;
+            }
+        }
+
+    </style>
 </head>
+
 
 <body>
 
 
-    <!-- HEADER -->
+    <!-- =================================
+         HEADER
+    ================================== -->
 
-    <header>
+    <header class="site-header">
 
-        <a href="index.html">
-            <img src="logo.png" alt="Angels & Demons TCG" class="logo">
-        </a>
+        <div class="header-container">
 
-        <nav class="main-nav">
+            <a href="index.html" class="logo-link">
+                <img src="logo.png"
+                     alt="Angels & Demons TCG"
+                     class="site-logo">
+            </a>
 
-            <a href="index.html">Home</a>
-            <a href="cards.html">Cards</a>
-            <a href="rules.html">TCG Rules</a>
-            <a href="howtoplay.html">How To Play</a>
-            <a href="shop.html">Shop</a>
-            <a href="faq.html">FAQ</a>
+            <nav class="main-nav">
 
-        </nav>
+                <a href="index.html">Home</a>
+
+                <a href="cards.html">Cards</a>
+
+                <a href="rules.html">TCG Rules</a>
+
+                <a href="howtoplay.html">How To Play</a>
+
+                <a href="shop.html">Shop</a>
+
+                <a href="faq.html">FAQ</a>
+
+            </nav>
+
+        </div>
 
     </header>
 
 
-    <!-- MAIN -->
 
-    <main>
+    <!-- =================================
+         NEON BACKGROUND
+    ================================== -->
+
+    <div class="neon-background">
+
+        <div class="neon-dot blue"></div>
+        <div class="neon-dot gold"></div>
+        <div class="neon-dot red"></div>
+        <div class="neon-dot green"></div>
+        <div class="neon-dot purple"></div>
+        <div class="neon-dot pink"></div>
+        <div class="neon-dot cyan"></div>
+        <div class="neon-dot silver"></div>
+
+        <div class="neon-bar blue"></div>
+        <div class="neon-bar gold"></div>
+        <div class="neon-bar red"></div>
+        <div class="neon-bar green"></div>
+        <div class="neon-bar purple"></div>
+        <div class="neon-bar pink"></div>
+        <div class="neon-bar cyan"></div>
+        <div class="neon-bar silver"></div>
+
+    </div>
 
 
-        <!-- NEON BACKGROUND -->
 
-        <div class="neon-background">
+    <!-- =================================
+         MAIN CONTENT
+    ================================== -->
 
-            <div class="neon-dot blue"></div>
-            <div class="neon-dot gold"></div>
-            <div class="neon-dot red"></div>
-            <div class="neon-dot green"></div>
-            <div class="neon-dot purple"></div>
-            <div class="neon-dot pink"></div>
-            <div class="neon-dot cyan"></div>
-            <div class="neon-dot silver"></div>
+    <main class="boosterpacks-page">
 
-            <div class="neon-bar blue"></div>
-            <div class="neon-bar gold"></div>
-            <div class="neon-bar red"></div>
-            <div class="neon-bar green"></div>
-            <div class="neon-bar purple"></div>
-            <div class="neon-bar pink"></div>
-            <div class="neon-bar cyan"></div>
-            <div class="neon-bar silver"></div>
+
+        <!-- HERO -->
+
+        <section class="boosterpacks-hero">
+
+            <div class="boosterpacks-label">
+                COLLECT • EXPAND • BATTLE
+            </div>
+
+            <h1>Booster Packs</h1>
+
+            <p>
+                Expand your Angels & Demons TCG collection
+                with Booster Packs from each Set.
+                Discover new cards, build your deck,
+                and prepare for battle.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================
+             SET 1
+        ================================== -->
+
+        <section class="booster-set">
+
+            <div class="booster-set-header">
+
+                <span class="booster-set-label">
+                    ANGELS & DEMONS TCG
+                </span>
+
+                <h2>Set 1</h2>
+
+            </div>
+
+
+
+            <!-- BOOSTER GRID -->
+
+            <div class="booster-product-grid">
+
+
+                <!-- BOOSTER PACK 1 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 1</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 1
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 2 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 2</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 2
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 3 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 3</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 3
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 4 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 4</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 4
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 5 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 5</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 5
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 6 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 6</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 6
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 7 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 7</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 7
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 8 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 8</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 8
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 9 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 9</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 9
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 10 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 10</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 10
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 11 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 11</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 11
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 12 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 12</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 12
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 13 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 13</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 13
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BOOSTER PACK 14 -->
+
+                <article class="booster-product-card">
+
+                    <div class="booster-product-badge">
+                        SET 1
+                    </div>
+
+                    <div class="booster-product-image-placeholder">
+
+                        <span>SET 1</span>
+
+                        <strong>BOOSTER PACK 14</strong>
+
+                    </div>
+
+                    <div class="booster-product-content">
+
+                        <p class="booster-product-type">
+                            BOOSTER PACK
+                        </p>
+
+                        <h3>
+                            Set 1 Booster Pack 14
+                        </h3>
+
+                        <p>
+                            Expand your collection with cards from
+                            Angels & Demons TCG Set 1.
+                        </p>
+
+                        <div class="booster-product-price">
+                            €5,99
+                        </div>
+
+                        <div class="booster-product-status">
+                            AVAILABLE SOON
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             INFORMATION
+        ================================== -->
+
+        <section class="boosterpacks-information">
+
+            <h2>
+                Collect. Open. Battle.
+            </h2>
+
+            <p>
+                Booster Packs are designed to expand your collection
+                and give you more options when building your deck.
+                Discover new Angels, Demons and other cards
+                from the world of Angels & Demons TCG.
+            </p>
+
+        </section>
+
+
+
+        <!-- BACK TO SHOP -->
+
+        <div class="boosterpacks-back">
+
+            <a href="shop.html">
+                BACK TO SHOP
+            </a>
 
         </div>
 
 
-        <!-- BOOSTER PACKS PAGE -->
-
-        <section class="boosterpacks-page">
-
-
-            <!-- HERO -->
-
-            <div class="boosterpacks-hero">
-
-                <p class="boosterpacks-label">
-                    EXPAND YOUR COLLECTION
-                </p>
-
-                <h1>
-                    Booster Packs
-                </h1>
-
-                <p>
-                    Discover cards from the world of Angels & Demons TCG.
-                    Open Booster Packs, expand your collection, and prepare for battle.
-                </p>
-
-            </div>
-
-
-            <!-- =====================================
-                 SET 1
-                 ===================================== -->
-
-            <section class="booster-set">
-
-
-                <div class="booster-set-header">
-
-                    <p class="booster-set-label">
-                        ANGELS & DEMONS TCG
-                    </p>
-
-                    <h2>
-                        Set 1
-                    </h2>
-
-                    <p>
-                        Discover the Booster Packs of Set 1.
-                    </p>
-
-                </div>
-
-
-                <div class="booster-product-grid">
-
-
-                    <!-- BOOSTER PACK 1 -->
-
-                    <article class="booster-product-card">
-
-                        <div class="booster-product-badge">
-                            SET 1
-                        </div>
-
-
-                        <div class="booster-product-image-placeholder">
-
-                            <span>
-                                SET 1
-                            </span>
-
-                            <strong>
-                                BOOSTER PACK 1
-                            </strong>
-
-                        </div>
-
-
-                        <div class="booster-product-content">
-
-                            <p class="booster-product-type">
-                                BOOSTER PACK
-                            </p>
-
-                            <h3>
-                                Set 1 Booster Pack 1
-                            </h3>
-
-                            <p>
-                                Expand your collection with cards from
-                                Angels & Demons TCG Set 1.
-                            </p>
-
-                            <div class="booster-product-status">
-                                AVAILABLE SOON
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- BOOSTER PACK 2 -->
-
-                    <article class="booster-product-card">
-
-                        <div class="booster-product-badge">
-                            SET 1
-                        </div>
-
-
-                        <div class="booster-product-image-placeholder">
-
-                            <span>
-                                SET 1
-                            </span>
-
-                            <strong>
-                                BOOSTER PACK 2
-                            </strong>
-
-                        </div>
-
-
-                        <div class="booster-product-content">
-
-                            <p class="booster-product-type">
-                                BOOSTER PACK
-                            </p>
-
-                            <h3>
-                                Set 1 Booster Pack 2
-                            </h3>
-
-                            <p>
-                                Expand your collection with cards from
-                                Angels & Demons TCG Set 1.
-                            </p>
-
-                            <div class="booster-product-status">
-                                AVAILABLE SOON
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- BOOSTER PACK 3 -->
-
-                    <article class="booster-product-card">
-
-                        <div class="booster-product-badge">
-                            SET 1
-                        </div>
-
-
-                        <div class="booster-product-image-placeholder">
-
-                            <span>
-                                SET 1
-                            </span>
-
-                            <strong>
-                                BOOSTER PACK 3
-                            </strong>
-
-                        </div>
-
-
-                        <div class="booster-product-content">
-
-                            <p class="booster-product-type">
-                                BOOSTER PACK
-                            </p>
-
-                            <h3>
-                                Set 1 Booster Pack 3
-                            </h3>
-
-                            <p>
-                                Expand your collection with cards from
-                                Angels & Demons TCG Set 1.
-                            </p>
-
-                            <div class="booster-product-status">
-                                AVAILABLE SOON
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                </div>
-
-            </section>
-
-
-            <!-- =====================================
-                 FUTURE SET 2
-                 ===================================== -->
-
-            <!--
-
-            <section class="booster-set">
-
-                <div class="booster-set-header">
-
-                    <p class="booster-set-label">
-                        ANGELS & DEMONS TCG
-                    </p>
-
-                    <h2>
-                        Set 2
-                    </h2>
-
-                    <p>
-                        Discover the Booster Packs of Set 2.
-                    </p>
-
-                </div>
-
-
-                <div class="booster-product-grid">
-
-
-                    <!-- BOOSTER PACK 1 -->
-
-                    <article class="booster-product-card">
-
-                        ...
-
-                    </article>
-
-
-                    <!-- BOOSTER PACK 2 -->
-
-                    <article class="booster-product-card">
-
-                        ...
-
-                    </article>
-
-
-                </div>
-
-            </section>
-
-            -->
-
-
-            <!-- INFORMATION -->
-
-            <section class="boosterpacks-information">
-
-                <h2>
-                    Collect. Open. Battle.
-                </h2>
-
-                <p>
-                    Booster Packs are designed to expand your collection
-                    with cards from the different Angels & Demons TCG sets.
-                </p>
-
-                <p>
-                    As new sets are released, their Booster Packs will be
-                    added to this page.
-                </p>
-
-                <a href="shop.html" class="boosterpacks-back">
-                    Back to Shop
-                </a>
-
-            </section>
-
-
-        </section>
-
     </main>
 
 
-    <!-- FOOTER -->
 
-    <footer>
+    <!-- =================================
+         FOOTER
+    ================================== -->
 
-        <div class="footer-container">
+    <footer class="site-footer">
 
+        <div class="footer-content">
 
-            <div class="footer-column">
+            <div class="footer-section">
 
-                <h3>
-                    Angels & Demons TCG
-                </h3>
+                <img src="logo.png"
+                     alt="Angels & Demons TCG"
+                     class="footer-logo">
 
                 <p>
-                    Enter a world where Angels and Demons battle for power.
-                    Collect cards, build your deck, and master the game.
+                    Choose your side. Build your deck.
+                    Battle for Soul Cores.
                 </p>
 
             </div>
 
 
-            <div class="footer-column">
+            <div class="footer-section">
 
                 <h3>
-                    Quick Links
+                    QUICK LINKS
                 </h3>
 
-                <a href="index.html">Home</a>
-                <a href="cards.html">Cards</a>
-                <a href="rules.html">TCG Rules</a>
-                <a href="howtoplay.html">How To Play</a>
-                <a href="shop.html">Shop</a>
-                <a href="about.html">About</a>
-                <a href="faq.html">FAQ</a>
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="cards.html">
+                    Cards
+                </a>
+
+                <a href="rules.html">
+                    TCG Rules
+                </a>
+
+                <a href="howtoplay.html">
+                    How To Play
+                </a>
+
+                <a href="shop.html">
+                    Shop
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+                <a href="faq.html">
+                    FAQ
+                </a>
 
             </div>
 
 
-            <div class="footer-column">
+            <div class="footer-section">
 
                 <h3>
-                    Connect
+                    SHOP
                 </h3>
 
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-                <a href="#">YouTube</a>
+                <a href="starterdecks.html">
+                    Starter Decks
+                </a>
+
+                <a href="boosterpacks.html">
+                    Booster Packs
+                </a>
+
+                <a href="godboxes.html">
+                    God Boxes
+                </a>
 
             </div>
 
+
+            <div class="footer-section">
+
+                <h3>
+                    FOLLOW
+                </h3>
+
+                <a href="#">
+                    Instagram
+                </a>
+
+                <a href="#">
+                    Facebook
+                </a>
+
+                <a href="#">
+                    YouTube
+                </a>
+
+            </div>
 
         </div>
 
@@ -412,7 +1250,8 @@
         <div class="footer-bottom">
 
             <p>
-                © 2026 Angels & Demons TCG. All rights reserved.
+                © 2026 Angels & Demons TCG.
+                All Rights Reserved.
             </p>
 
         </div>
@@ -420,28 +1259,14 @@
     </footer>
 
 
+
+    <!-- =================================
+         SCRIPTS
+    ================================== -->
+
+    <script src="script.js"></script>
     <script src="image-protection.js"></script>
 
 
-    <!-- Google Analytics -->
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MMG1DT3N61"></script>
-
-    <script>
-
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag(){
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-
-        gtag('config', 'G-MMG1DT3N61');
-
-    </script>
-
-
 </body>
-
 </html>

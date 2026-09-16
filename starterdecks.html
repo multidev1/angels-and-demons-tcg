@@ -20,33 +20,419 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mobile.css">
 
+    <style>
+
+        /* =================================
+           STARTER DECKS PAGE
+        ================================= */
+
+        .starter-decks-page {
+            padding: 80px 50px 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+
+        /* HERO */
+
+        .starter-decks-hero {
+            text-align: center;
+            padding: 70px 20px 90px;
+        }
+
+        .starter-decks-label {
+            color: #d4af37;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+        }
+
+        .starter-decks-hero h1 {
+            font-size: 56px;
+            margin: 0 0 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .starter-decks-hero > p:last-child {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #cccccc;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+
+        /* SET */
+
+        .starter-set {
+            margin-bottom: 80px;
+        }
+
+        .starter-set-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .starter-set-label {
+            color: #3498db;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .starter-set-header h2 {
+            margin: 0 0 12px;
+            color: #ffffff;
+            font-size: 38px;
+            text-transform: uppercase;
+        }
+
+        .starter-set-header > p:last-child {
+            margin: 0;
+            color: #bbbbbb;
+            font-size: 16px;
+        }
+
+
+        /* STARTER DECK GRID */
+
+        .starter-decks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 35px;
+        }
+
+
+        /* STARTER DECK CARD */
+
+        .starter-deck-card {
+            position: relative;
+            background: rgba(10, 10, 10, 0.92);
+            border: 1px solid rgba(52, 152, 219, 0.35);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.08);
+        }
+
+        .starter-deck-card:hover {
+            transform: translateY(-8px);
+            border-color: #d4af37;
+            box-shadow:
+                0 0 15px rgba(212, 175, 55, 0.35),
+                0 0 35px rgba(52, 152, 219, 0.12);
+        }
+
+
+        /* BADGE */
+
+        .starter-deck-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 2;
+
+            padding: 7px 13px;
+
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+
+            color: #d4af37;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+
+        /* IMAGE */
+
+        .starter-deck-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+
+        /* CONTENT */
+
+        .starter-deck-content {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .starter-deck-side {
+            margin: 0 0 10px;
+
+            color: #d4af37;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .starter-deck-content h3 {
+            margin: 0 0 15px;
+
+            color: #ffffff;
+            font-size: 28px;
+        }
+
+        .starter-deck-content > p:not(.starter-deck-side) {
+            margin: 0 auto;
+
+            max-width: 520px;
+
+            color: #bbbbbb;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+
+        /* PRICE */
+
+        .starter-deck-price {
+            margin-top: 25px;
+
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+
+        /* WHAT'S INSIDE */
+
+        .starter-deck-inside {
+            margin: 25px auto 0;
+            max-width: 400px;
+
+            padding: 20px;
+
+            border-top: 1px solid rgba(52, 152, 219, 0.25);
+            border-bottom: 1px solid rgba(52, 152, 219, 0.25);
+
+            text-align: left;
+        }
+
+        .starter-deck-inside h4 {
+            margin: 0 0 15px;
+
+            color: #d4af37;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .starter-deck-inside ul {
+            margin: 0;
+            padding: 0;
+
+            list-style: none;
+        }
+
+        .starter-deck-inside li {
+            position: relative;
+
+            margin-bottom: 9px;
+            padding-left: 20px;
+
+            color: #cccccc;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .starter-deck-inside li:last-child {
+            margin-bottom: 0;
+        }
+
+        .starter-deck-inside li::before {
+            content: "◆";
+
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            color: #3498db;
+            font-size: 9px;
+        }
+
+
+        /* STATUS */
+
+        .starter-deck-status {
+            display: inline-block;
+
+            margin-top: 25px;
+            padding: 10px 18px;
+
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 5px;
+
+            color: #d4af37;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+
+        /* INFORMATION */
+
+        .starter-decks-information {
+            max-width: 900px;
+            margin: 0 auto 70px;
+
+            padding: 45px 35px;
+
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid rgba(52, 152, 219, 0.25);
+            border-radius: 14px;
+
+            text-align: center;
+        }
+
+        .starter-decks-information h2 {
+            margin: 0 0 20px;
+
+            color: #ffffff;
+            font-size: 32px;
+        }
+
+        .starter-decks-information p {
+            margin: 0 auto 18px;
+
+            color: #bbbbbb;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .starter-decks-information p:last-of-type {
+            margin-bottom: 30px;
+        }
+
+
+        /* BACK BUTTON */
+
+        .starter-decks-back {
+            display: inline-block;
+
+            padding: 14px 28px;
+
+            border: 1px solid #3498db;
+            border-radius: 5px;
+
+            color: #ffffff;
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+
+            transition: all 0.3s ease;
+        }
+
+        .starter-decks-back:hover {
+            border-color: #d4af37;
+            color: #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 768px) {
+
+            .starter-decks-page {
+                padding: 50px 15px 70px;
+            }
+
+            .starter-decks-hero {
+                padding: 45px 10px 60px;
+            }
+
+            .starter-decks-hero h1 {
+                font-size: 38px;
+            }
+
+            .starter-decks-hero > p:last-child {
+                font-size: 15px;
+            }
+
+            .starter-set-header h2 {
+                font-size: 30px;
+            }
+
+            .starter-decks-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .starter-deck-content {
+                padding: 25px 20px;
+            }
+
+            .starter-deck-content h3 {
+                font-size: 24px;
+            }
+
+            .starter-decks-information {
+                padding: 35px 20px;
+            }
+
+            .starter-decks-information h2 {
+                font-size: 27px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <!-- HEADER -->
+
+    <!-- =================================
+         HEADER
+    ================================== -->
 
     <header>
 
         <a href="index.html">
-            <img src="logo.png" alt="Angels & Demons TCG" class="logo">
+            <img src="logo.png"
+                 alt="Angels & Demons TCG"
+                 class="logo">
         </a>
 
         <nav class="main-nav">
+
             <a href="index.html">Home</a>
+
             <a href="cards.html">Cards</a>
+
             <a href="rules.html">TCG Rules</a>
+
             <a href="howtoplay.html">How To Play</a>
+
             <a href="shop.html">Shop</a>
+
             <a href="faq.html">FAQ</a>
+
         </nav>
 
     </header>
 
 
-    <!-- MAIN -->
+
+    <!-- =================================
+         MAIN
+    ================================== -->
 
     <main>
+
 
         <!-- NEON BACKGROUND -->
 
@@ -73,7 +459,10 @@
         </div>
 
 
-        <!-- STARTER DECKS PAGE -->
+
+        <!-- =================================
+             STARTER DECKS PAGE
+        ================================== -->
 
         <section class="starter-decks-page">
 
@@ -98,7 +487,10 @@
             </div>
 
 
-            <!-- SET 1 -->
+
+            <!-- =================================
+                 SET 1
+            ================================== -->
 
             <section class="starter-set">
 
@@ -119,10 +511,13 @@
                 </div>
 
 
+
                 <div class="starter-decks-grid">
 
 
-                    <!-- ANGELS STARTER DECK -->
+                    <!-- =================================
+                         ANGELS STARTER DECK
+                    ================================== -->
 
                     <article class="starter-deck-card angel-deck">
 
@@ -130,11 +525,13 @@
                             ANGELS
                         </div>
 
+
                         <img
                             src="ANGEL DECK.png"
                             alt="Angels & Demons TCG Angels Starter Deck - Set 1"
                             class="starter-deck-image"
                         >
+
 
                         <div class="starter-deck-content">
 
@@ -152,6 +549,47 @@
                                 warriors in battle.
                             </p>
 
+
+                            <!-- PRICE -->
+
+                            <div class="starter-deck-price">
+                                €29,99
+                            </div>
+
+
+                            <!-- WHAT'S INSIDE -->
+
+                            <div class="starter-deck-inside">
+
+                                <h4>
+                                    WHAT'S INSIDE
+                                </h4>
+
+                                <ul>
+
+                                    <li>
+                                        50 Cards
+                                    </li>
+
+                                    <li>
+                                        1 Shiny Foil Monster Card
+                                    </li>
+
+                                    <li>
+                                        49 Other Cards
+                                    </li>
+
+                                    <li>
+                                        10 Soul Cores
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+
+                            <!-- STATUS -->
+
                             <div class="starter-deck-status">
                                 AVAILABLE SOON
                             </div>
@@ -161,7 +599,10 @@
                     </article>
 
 
-                    <!-- DEMONS STARTER DECK -->
+
+                    <!-- =================================
+                         DEMONS STARTER DECK
+                    ================================== -->
 
                     <article class="starter-deck-card demon-deck">
 
@@ -169,11 +610,13 @@
                             DEMONS
                         </div>
 
+
                         <img
                             src="DEMON DECK.png"
                             alt="Angels & Demons TCG Demons Starter Deck - Set 1"
                             class="starter-deck-image"
                         >
+
 
                         <div class="starter-deck-content">
 
@@ -191,6 +634,47 @@
                                 opponents.
                             </p>
 
+
+                            <!-- PRICE -->
+
+                            <div class="starter-deck-price">
+                                €29,99
+                            </div>
+
+
+                            <!-- WHAT'S INSIDE -->
+
+                            <div class="starter-deck-inside">
+
+                                <h4>
+                                    WHAT'S INSIDE
+                                </h4>
+
+                                <ul>
+
+                                    <li>
+                                        50 Cards
+                                    </li>
+
+                                    <li>
+                                        1 Shiny Foil Monster Card
+                                    </li>
+
+                                    <li>
+                                        49 Other Cards
+                                    </li>
+
+                                    <li>
+                                        10 Soul Cores
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+
+                            <!-- STATUS -->
+
                             <div class="starter-deck-status">
                                 AVAILABLE SOON
                             </div>
@@ -199,14 +683,22 @@
 
                     </article>
 
+
                 </div>
 
             </section>
 
 
-            <!-- FUTURE SETS WILL BE ADDED HERE -->
+
+            <!-- =================================
+                 FUTURE SETS
+            ================================== -->
 
             <!--
+            Future sets can be added here.
+
+            Example:
+
             <section class="starter-set">
 
                 <div class="starter-set-header">
@@ -227,7 +719,7 @@
 
                 <div class="starter-decks-grid">
 
-                    ADD SET 2 STARTER DECKS HERE
+                    Starter Decks for Set 2 go here.
 
                 </div>
 
@@ -235,7 +727,10 @@
             -->
 
 
-            <!-- INFORMATION -->
+
+            <!-- =================================
+                 INFORMATION
+            ================================== -->
 
             <section class="starter-decks-information">
 
@@ -255,7 +750,7 @@
                 </p>
 
                 <a href="shop.html" class="starter-decks-back">
-                    Back to Shop
+                    BACK TO SHOP
                 </a>
 
             </section>
@@ -266,7 +761,10 @@
     </main>
 
 
-    <!-- FOOTER -->
+
+    <!-- =================================
+         FOOTER
+    ================================== -->
 
     <footer>
 
@@ -287,21 +785,43 @@
             </div>
 
 
+
             <div class="footer-column">
 
                 <h3>
                     Quick Links
                 </h3>
 
-                <a href="index.html">Home</a>
-                <a href="cards.html">Cards</a>
-                <a href="rules.html">TCG Rules</a>
-                <a href="howtoplay.html">How To Play</a>
-                <a href="shop.html">Shop</a>
-                <a href="about.html">About</a>
-                <a href="faq.html">FAQ</a>
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="cards.html">
+                    Cards
+                </a>
+
+                <a href="rules.html">
+                    TCG Rules
+                </a>
+
+                <a href="howtoplay.html">
+                    How To Play
+                </a>
+
+                <a href="shop.html">
+                    Shop
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+                <a href="faq.html">
+                    FAQ
+                </a>
 
             </div>
+
 
 
             <div class="footer-column">
@@ -310,14 +830,23 @@
                     Connect
                 </h3>
 
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-                <a href="#">YouTube</a>
+                <a href="#">
+                    Facebook
+                </a>
+
+                <a href="#">
+                    Instagram
+                </a>
+
+                <a href="#">
+                    YouTube
+                </a>
 
             </div>
 
 
         </div>
+
 
 
         <div class="footer-bottom">
@@ -331,10 +860,14 @@
     </footer>
 
 
+
+    <!-- SCRIPTS -->
+
     <script src="image-protection.js"></script>
 
 
-    <!-- Google Analytics -->
+
+    <!-- GOOGLE ANALYTICS -->
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MMG1DT3N61"></script>
 
@@ -342,7 +875,7 @@
 
         window.dataLayer = window.dataLayer || [];
 
-        function gtag(){
+        function gtag() {
             dataLayer.push(arguments);
         }
 
@@ -351,6 +884,7 @@
         gtag('config', 'G-MMG1DT3N61');
 
     </script>
+
 
 </body>
 

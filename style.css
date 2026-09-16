@@ -3659,3 +3659,15 @@ img.protected-image {
     }
 
 }
+
+.booster-product-price {
+    margin-top: 25px;
+    color: #d4af37;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.footer-logo {
+    width: 200px;
+    height: auto;
+}
