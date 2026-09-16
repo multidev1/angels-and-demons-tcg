@@ -10,17 +10,11 @@
 
     <style>
 
-        /* =========================
-           GOD BOXES PAGE
-        ========================= */
-
         .godboxes-page {
             max-width: 1400px;
             margin: 0 auto;
             padding: 60px 40px 100px;
         }
-
-        /* HERO */
 
         .godboxes-hero {
             text-align: center;
@@ -50,8 +44,6 @@
             line-height: 1.7;
         }
 
-        /* SET */
-
         .god-set {
             margin-top: 40px;
         }
@@ -75,15 +67,11 @@
             letter-spacing: 2px;
         }
 
-        /* GRID */
-
         .god-product-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 35px;
         }
-
-        /* PRODUCT CARD */
 
         .god-product-card {
             background: rgba(10, 10, 10, 0.92);
@@ -102,8 +90,6 @@
                 0 0 35px rgba(212, 175, 55, 0.15);
         }
 
-        /* BADGE */
-
         .god-product-badge {
             text-align: center;
             background: #111;
@@ -115,27 +101,13 @@
             border-bottom: 1px solid rgba(212, 175, 55, 0.25);
         }
 
-        /* IMAGE PLACEHOLDER */
-
-        .god-product-image-placeholder {
+        .god-product-image {
             width: 100%;
-            height: 360px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(212, 175, 55, 0.12),
-                    rgba(0, 0, 0, 0.95) 70%
-                );
-            color: #777;
-            font-size: 24px;
-            letter-spacing: 3px;
-            font-weight: bold;
+            height: 500px;
+            object-fit: contain;
+            display: block;
+            background: #080808;
         }
-
-        /* CONTENT */
 
         .god-product-content {
             padding: 30px;
@@ -158,8 +130,6 @@
             color: #bbb;
             line-height: 1.6;
         }
-
-        /* INSIDE BOX */
 
         .god-box-inside {
             margin-top: 25px;
@@ -187,16 +157,12 @@
             line-height: 1.5;
         }
 
-        /* PRICE */
-
         .god-product-price {
             margin-top: 25px;
             font-size: 28px;
             font-weight: bold;
             color: #d4af37;
         }
-
-        /* STATUS */
 
         .god-product-status {
             display: inline-block;
@@ -209,8 +175,6 @@
             letter-spacing: 2px;
             font-weight: bold;
         }
-
-        /* INFORMATION */
 
         .godboxes-information {
             margin-top: 100px;
@@ -232,8 +196,6 @@
             color: #bbb;
             line-height: 1.7;
         }
-
-        /* BACK BUTTON */
 
         .godboxes-back {
             text-align: center;
@@ -257,8 +219,6 @@
             color: #111;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
         }
-
-        /* MOBILE */
 
         @media (max-width: 768px) {
 
@@ -287,8 +247,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .god-product-image-placeholder {
-                height: 280px;
+            .god-product-image {
+                height: 400px;
             }
 
             .god-product-content {
@@ -309,10 +269,6 @@
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header class="site-header">
 
     <div class="header-container">
@@ -326,15 +282,10 @@
         <nav class="main-nav">
 
             <a href="index.html">Home</a>
-
             <a href="cards.html">Cards</a>
-
             <a href="rules.html">TCG Rules</a>
-
             <a href="howtoplay.html">How To Play</a>
-
             <a href="shop.html">Shop</a>
-
             <a href="faq.html">FAQ</a>
 
         </nav>
@@ -343,10 +294,6 @@
 
 </header>
 
-
-<!-- =========================
-     NEON BACKGROUND
-========================= -->
 
 <div class="neon-background">
 
@@ -362,14 +309,8 @@
 </div>
 
 
-<!-- =========================
-     MAIN
-========================= -->
-
 <main class="godboxes-page">
 
-
-    <!-- HERO -->
 
     <section class="godboxes-hero">
 
@@ -381,16 +322,12 @@
 
         <p>
             Discover the Gods of Angels & Demons TCG.
-            Each God Box contains powerful God cards and Booster Packs
-            to expand your collection and your deck.
+            Each God Box contains a Normal God Card,
+            a Shiny Foil Bonus God Card and five Booster Packs.
         </p>
 
     </section>
 
-
-    <!-- =========================
-         SET 1
-    ========================= -->
 
     <section class="god-set">
 
@@ -408,7 +345,7 @@
         <div class="god-product-grid">
 
 
-            <!-- GOD 01 -->
+            <!-- GOD PACK ANGEL OF DRAGON TAIL -->
 
             <article class="god-product-card">
 
@@ -416,9 +353,11 @@
                     SET 1
                 </div>
 
-                <div class="god-product-image-placeholder">
-                    GOD 01
-                </div>
+                <img
+                    src="god pack angel of dragon tail.png"
+                    alt="God Pack Angel of Dragon Tail"
+                    class="god-product-image"
+                >
 
                 <div class="god-product-content">
 
@@ -426,10 +365,10 @@
                         GOD BOX
                     </div>
 
-                    <h3>God 01</h3>
+                    <h3>God Pack Angel of Dragon Tail</h3>
 
                     <p>
-                        A special God Box dedicated to one of the
+                        A special God Box featuring one of the
                         legendary Gods of Angels & Demons TCG.
                     </p>
 
@@ -458,7 +397,7 @@
             </article>
 
 
-            <!-- GOD 02 -->
+            <!-- GOD PACK CELIA -->
 
             <article class="god-product-card">
 
@@ -466,9 +405,11 @@
                     SET 1
                 </div>
 
-                <div class="god-product-image-placeholder">
-                    GOD 02
-                </div>
+                <img
+                    src="god pack celia.png"
+                    alt="God Pack Celia"
+                    class="god-product-image"
+                >
 
                 <div class="god-product-content">
 
@@ -476,10 +417,10 @@
                         GOD BOX
                     </div>
 
-                    <h3>God 02</h3>
+                    <h3>God Pack Celia</h3>
 
                     <p>
-                        A special God Box dedicated to one of the
+                        A special God Box featuring one of the
                         legendary Gods of Angels & Demons TCG.
                     </p>
 
@@ -508,7 +449,7 @@
             </article>
 
 
-            <!-- GOD 03 -->
+            <!-- GOD PACK GOLDEN CLAW DEMON -->
 
             <article class="god-product-card">
 
@@ -516,9 +457,11 @@
                     SET 1
                 </div>
 
-                <div class="god-product-image-placeholder">
-                    GOD 03
-                </div>
+                <img
+                    src="god pack golden claw demon.png"
+                    alt="God Pack Golden Claw Demon"
+                    class="god-product-image"
+                >
 
                 <div class="god-product-content">
 
@@ -526,10 +469,10 @@
                         GOD BOX
                     </div>
 
-                    <h3>God 03</h3>
+                    <h3>God Pack Golden Claw Demon</h3>
 
                     <p>
-                        A special God Box dedicated to one of the
+                        A special God Box featuring one of the
                         legendary Gods of Angels & Demons TCG.
                     </p>
 
@@ -558,7 +501,7 @@
             </article>
 
 
-            <!-- GOD 04 -->
+            <!-- GOD PACK SILVER SHIELD DEMON -->
 
             <article class="god-product-card">
 
@@ -566,9 +509,11 @@
                     SET 1
                 </div>
 
-                <div class="god-product-image-placeholder">
-                    GOD 04
-                </div>
+                <img
+                    src="god pack silver shield demon.png"
+                    alt="God Pack Silver Shield Demon"
+                    class="god-product-image"
+                >
 
                 <div class="god-product-content">
 
@@ -576,10 +521,10 @@
                         GOD BOX
                     </div>
 
-                    <h3>God 04</h3>
+                    <h3>God Pack Silver Shield Demon</h3>
 
                     <p>
-                        A special God Box dedicated to one of the
+                        A special God Box featuring one of the
                         legendary Gods of Angels & Demons TCG.
                     </p>
 
@@ -612,10 +557,6 @@
 
     </section>
 
-
-    <!-- =========================
-         INFORMATION
-    ========================= -->
 
     <section class="godboxes-information">
 
@@ -634,8 +575,6 @@
     </section>
 
 
-    <!-- BACK TO SHOP -->
-
     <div class="godboxes-back">
 
         <a href="shop.html">
@@ -647,10 +586,6 @@
 
 </main>
 
-
-<!-- =========================
-     FOOTER
-========================= -->
 
 <footer class="site-footer">
 
@@ -689,17 +624,9 @@
 
             <h3>SHOP</h3>
 
-            <a href="starterdecks.html">
-                Starter Decks
-            </a>
-
-            <a href="boosterpacks.html">
-                Booster Packs
-            </a>
-
-            <a href="godboxes.html">
-                God Boxes
-            </a>
+            <a href="starterdecks.html">Starter Decks</a>
+            <a href="boosterpacks.html">Booster Packs</a>
+            <a href="godboxes.html">God Boxes</a>
 
         </div>
 
