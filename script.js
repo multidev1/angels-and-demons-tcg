@@ -42,41 +42,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let activeFilter = "all";
 
-    function filterCards() {
+function filterCards() {
 
-        const searchTerm =
-            searchInput.value.toLowerCase().trim();
+    const searchTerm =
+        searchInput.value.toLowerCase().trim();
 
-        cards.forEach(function (card) {
+    cards.forEach(function (card) {
 
-            const number =
-                (card.dataset.number || "").toLowerCase();
+        const number =
+            (card.dataset.number || "").toLowerCase();
 
-            const name =
-                (card.dataset.name || "").toLowerCase();
+        const name =
+            (card.dataset.name || "").toLowerCase();
 
-            const type =
-                (card.dataset.type || "").toLowerCase();
+        const type =
+            (card.dataset.type || "").toLowerCase();
 
-            const matchesSearch =
-                number.includes(searchTerm) ||
-                name.includes(searchTerm);
+        const matchesSearch =
+            number.includes(searchTerm) ||
+            name.includes(searchTerm);
 
-            let matchesFilter = true;
+        let matchesFilter = true;
 
-            if (activeFilter !== "all") {
+        if (activeFilter !== "all") {
+
+            if (activeFilter === "shiny") {
+
+                matchesFilter =
+                    number.includes("s");
+
+            } else {
+
                 matchesFilter =
                     type === activeFilter;
+
             }
 
-            if (matchesSearch && matchesFilter) {
-                card.style.display = "";
-            } else {
-                card.style.display = "none";
-            }
+        }
 
-        });
-    }
+        if (matchesSearch && matchesFilter) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+}
 
 
     searchInput.addEventListener("input", function () {
