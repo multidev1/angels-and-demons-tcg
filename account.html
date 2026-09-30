@@ -1,0 +1,747 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Account | Angels & Demons TCG</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+
+    <style>
+        /* =========================================
+           ACCOUNT PAGE
+        ========================================= */
+
+        .account-page {
+            min-height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+        .account-container {
+            width: 100%;
+            max-width: 500px;
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .account-container h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #d4af37;
+        }
+
+        .account-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .account-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .account-form label {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .account-form input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            background: #111;
+            border: 1px solid #555;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .account-form input:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .account-button {
+            margin-top: 10px;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            background: #3498db;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .account-button:hover {
+            background: #d4af37;
+            color: #111;
+        }
+
+        .account-link {
+            margin-top: 20px;
+            text-align: center;
+            color: #aaa;
+        }
+
+        .account-link a {
+            color: #5dade2;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .account-link a:hover {
+            color: #d4af37;
+        }
+
+        .account-message {
+            margin-top: 20px;
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .account-message.error {
+            display: block;
+            background: #3a1515;
+            border: 1px solid #8b3030;
+            color: #ff8f8f;
+        }
+
+        .account-message.success {
+            display: block;
+            background: #153a1f;
+            border: 1px solid #308b4c;
+            color: #8fffad;
+        }
+
+        .account-info {
+            text-align: center;
+        }
+
+        .account-info p {
+            color: #ccc;
+            margin: 15px 0 30px;
+        }
+
+        .logout-button {
+            width: 100%;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .forgot-password a:hover {
+            color: #d4af37;
+        }
+
+        @media (max-width: 600px) {
+            .account-page {
+                padding: 30px 15px;
+            }
+
+            .account-container {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================= -->
+
+    <header>
+        <a href="index.html">
+            <img src="logo.png" alt="Angels & Demons TCG Logo">
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="cards.html">Cards</a>
+            <a href="rules.html">Rules</a>
+            <a href="howtoplay.html">How To Play</a>
+            <a href="shop.html">Shop</a>
+            <a href="about.html">About</a>
+            <a href="faq.html">FAQ</a>
+            <a href="account.html">Account</a>
+        </nav>
+    </header>
+
+
+    <!-- =========================================
+         ACCOUNT
+    ========================================= -->
+
+    <main class="account-page">
+
+        <div class="account-container">
+
+            <h1>MY ACCOUNT</h1>
+
+
+            <!-- =====================================
+                 LOGIN
+            ====================================== -->
+
+            <div id="login-section">
+
+                <h2>Login</h2>
+
+                <form id="login-form" class="account-form">
+
+                    <label for="login-email">Email</label>
+
+                    <input
+                        type="email"
+                        id="login-email"
+                        placeholder="Your email"
+                        required
+                    >
+
+
+                    <label for="login-password">Password</label>
+
+                    <input
+                        type="password"
+                        id="login-password"
+                        placeholder="Your password"
+                        required
+                    >
+
+
+                    <button type="submit" class="account-button">
+                        LOGIN
+                    </button>
+
+                </form>
+
+
+                <div class="forgot-password">
+                    <a id="forgot-password-link">
+                        Forgot password?
+                    </a>
+                </div>
+
+
+                <div class="account-link">
+                    Don't have an account?
+                    <a id="show-register">
+                        Create Account
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 REGISTER
+            ====================================== -->
+
+            <div id="register-section" style="display:none;">
+
+                <h2>Create Account</h2>
+
+                <form id="register-form" class="account-form">
+
+                    <label for="register-email">Email</label>
+
+                    <input
+                        type="email"
+                        id="register-email"
+                        placeholder="Your email"
+                        required
+                    >
+
+
+                    <label for="register-password">Password</label>
+
+                    <input
+                        type="password"
+                        id="register-password"
+                        placeholder="Choose a password"
+                        minlength="6"
+                        required
+                    >
+
+
+                    <label for="register-confirm-password">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="register-confirm-password"
+                        placeholder="Repeat your password"
+                        minlength="6"
+                        required
+                    >
+
+
+                    <button type="submit" class="account-button">
+                        CREATE ACCOUNT
+                    </button>
+
+                </form>
+
+
+                <div class="account-link">
+                    Already have an account?
+                    <a id="show-login">
+                        Login
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 LOGGED IN
+            ====================================== -->
+
+            <div id="account-section" style="display:none;">
+
+                <div class="account-info">
+
+                    <h2>Welcome!</h2>
+
+                    <p>
+                        You are logged in as:
+                    </p>
+
+                    <p id="user-email"></p>
+
+                    <button
+                        id="logout-button"
+                        class="account-button logout-button"
+                    >
+                        LOG OUT
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 MESSAGE
+            ====================================== -->
+
+            <div id="account-message" class="account-message"></div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================= -->
+
+    <footer>
+        <p>© 2026 Angels & Demons TCG. All Rights Reserved.</p>
+    </footer>
+
+
+    <!-- =========================================
+         FIREBASE
+    ========================================= -->
+
+    <script type="module">
+
+        import { initializeApp }
+            from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged,
+            sendPasswordResetEmail
+        }
+        from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+
+        /* =========================================
+           FIREBASE CONFIGURATION
+        ========================================= */
+
+        const firebaseConfig = {
+
+            apiKey: "AIzaSyC8SYGuCnamD8EXHppwDfx3Px4kFREy68Q",
+
+            authDomain:
+                "angels-and-demons-tcg.firebaseapp.com",
+
+            projectId:
+                "angels-and-demons-tcg",
+
+            storageBucket:
+                "angels-and-demons-tcg.firebasestorage.app",
+
+            messagingSenderId:
+                "824060828922",
+
+            appId:
+                "1:824060828922:web:ad0c4f5bf978a738aa3d43",
+
+            measurementId:
+                "G-LT9RPTDKCE"
+        };
+
+
+        /* =========================================
+           INITIALIZE FIREBASE
+        ========================================= */
+
+        const app = initializeApp(firebaseConfig);
+
+        const auth = getAuth(app);
+
+
+        /* =========================================
+           ELEMENTS
+        ========================================= */
+
+        const loginSection =
+            document.getElementById("login-section");
+
+        const registerSection =
+            document.getElementById("register-section");
+
+        const accountSection =
+            document.getElementById("account-section");
+
+        const loginForm =
+            document.getElementById("login-form");
+
+        const registerForm =
+            document.getElementById("register-form");
+
+        const logoutButton =
+            document.getElementById("logout-button");
+
+        const showRegister =
+            document.getElementById("show-register");
+
+        const showLogin =
+            document.getElementById("show-login");
+
+        const forgotPasswordLink =
+            document.getElementById("forgot-password-link");
+
+        const userEmail =
+            document.getElementById("user-email");
+
+        const message =
+            document.getElementById("account-message");
+
+
+        /* =========================================
+           MESSAGE FUNCTION
+        ========================================= */
+
+        function showMessage(text, type = "error") {
+
+            message.textContent = text;
+
+            message.className =
+                "account-message " + type;
+        }
+
+
+        function clearMessage() {
+
+            message.textContent = "";
+
+            message.className =
+                "account-message";
+        }
+
+
+        /* =========================================
+           SWITCH TO REGISTER
+        ========================================= */
+
+        showRegister.addEventListener("click", () => {
+
+            loginSection.style.display = "none";
+
+            registerSection.style.display = "block";
+
+            clearMessage();
+        });
+
+
+        /* =========================================
+           SWITCH TO LOGIN
+        ========================================= */
+
+        showLogin.addEventListener("click", () => {
+
+            registerSection.style.display = "none";
+
+            loginSection.style.display = "block";
+
+            clearMessage();
+        });
+
+
+        /* =========================================
+           REGISTER
+        ========================================= */
+
+        registerForm.addEventListener("submit", async (event) => {
+
+            event.preventDefault();
+
+            clearMessage();
+
+            const email =
+                document.getElementById("register-email").value.trim();
+
+            const password =
+                document.getElementById("register-password").value;
+
+            const confirmPassword =
+                document.getElementById("register-confirm-password").value;
+
+
+            if (password !== confirmPassword) {
+
+                showMessage(
+                    "Passwords do not match."
+                );
+
+                return;
+            }
+
+
+            try {
+
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+                showMessage(
+                    "Account created successfully!",
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                if (error.code === "auth/email-already-in-use") {
+
+                    showMessage(
+                        "An account with this email already exists."
+                    );
+
+                } else if (error.code === "auth/invalid-email") {
+
+                    showMessage(
+                        "Please enter a valid email address."
+                    );
+
+                } else if (error.code === "auth/weak-password") {
+
+                    showMessage(
+                        "Your password is too weak. Use at least 6 characters."
+                    );
+
+                } else {
+
+                    showMessage(
+                        "Registration failed. Please try again."
+                    );
+                }
+            }
+        });
+
+
+        /* =========================================
+           LOGIN
+        ========================================= */
+
+        loginForm.addEventListener("submit", async (event) => {
+
+            event.preventDefault();
+
+            clearMessage();
+
+            const email =
+                document.getElementById("login-email").value.trim();
+
+            const password =
+                document.getElementById("login-password").value;
+
+
+            try {
+
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+                showMessage(
+                    "Login successful!",
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                if (
+                    error.code === "auth/invalid-credential" ||
+                    error.code === "auth/wrong-password" ||
+                    error.code === "auth/user-not-found"
+                ) {
+
+                    showMessage(
+                        "Incorrect email or password."
+                    );
+
+                } else {
+
+                    showMessage(
+                        "Login failed. Please try again."
+                    );
+                }
+            }
+        });
+
+
+        /* =========================================
+           FORGOT PASSWORD
+        ========================================= */
+
+        forgotPasswordLink.addEventListener("click", async () => {
+
+            clearMessage();
+
+            const email =
+                document.getElementById("login-email").value.trim();
+
+
+            if (!email) {
+
+                showMessage(
+                    "Enter your email address first."
+                );
+
+                return;
+            }
+
+
+            try {
+
+                await sendPasswordResetEmail(
+                    auth,
+                    email
+                );
+
+                showMessage(
+                    "Password reset email sent.",
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                showMessage(
+                    "Could not send password reset email."
+                );
+            }
+        });
+
+
+        /* =========================================
+           LOGOUT
+        ========================================= */
+
+        logoutButton.addEventListener("click", async () => {
+
+            try {
+
+                await signOut(auth);
+
+                showMessage(
+                    "You have been logged out.",
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                showMessage(
+                    "Logout failed."
+                );
+            }
+        });
+
+
+        /* =========================================
+           AUTH STATE
+        ========================================= */
+
+        onAuthStateChanged(auth, (user) => {
+
+            if (user) {
+
+                loginSection.style.display = "none";
+
+                registerSection.style.display = "none";
+
+                accountSection.style.display = "block";
+
+                userEmail.textContent =
+                    user.email;
+
+            } else {
+
+                accountSection.style.display = "none";
+
+                loginSection.style.display = "block";
+
+                registerSection.style.display = "none";
+            }
+        });
+
+    </script>
+	
+	<script type="module" src="auth.js"></script>
+
+</body>
+
+</html>
+

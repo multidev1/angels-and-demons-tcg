@@ -32,6 +32,10 @@
     <a href="howtoplay.html">How To Play</a>
     <a href="shop.html">Shop</a>
     <a href="faq.html">FAQ</a>
+	<a href="account.html">Account</a>
+	        <a href="cart.html" class="cart-nav">
+        🛒 Cart <span id="headerCartCount">0</span>
+    </a>
 </nav>
 
     </header>
@@ -194,4 +198,15 @@
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MMG1DT3N61"></script>
 <script>
-    
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-MMG1DT3N61');
+</script>
+
+<script type="module" src="auth.js"></script>
+
+</body>
+
+</html>

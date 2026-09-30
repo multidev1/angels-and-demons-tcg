@@ -386,6 +386,42 @@
             }
 
         }
+		
+		 /* ADD TO CART BUTTON */
+
+.booster-add-to-cart {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px 20px;
+    box-sizing: border-box;
+
+    background: transparent;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+
+    color: #ffffff;
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.booster-add-to-cart:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+
+    box-shadow:
+        0 0 10px rgba(212, 175, 55, 0.25),
+        0 0 20px rgba(52, 152, 219, 0.10);
+
+    transform: translateY(-2px);
+}
 
     </style>
 
@@ -420,6 +456,10 @@
             <a href="shop.html">Shop</a>
 
             <a href="faq.html">FAQ</a>
+			<a href="account.html">Account</a>
+			        <a href="cart.html" class="cart-nav">
+        🛒 Cart <span id="headerCartCount">0</span>
+    </a>
 
         </nav>
 
@@ -552,9 +592,9 @@
 
                             <!-- PRICE -->
 
-                            <div class="starter-deck-price">
-                                €49,99
-                            </div>
+ <div class="starter-deck-price">
+    €49,99
+</div>
 
 
                             <!-- WHAT'S INSIDE -->
@@ -587,16 +627,23 @@
 
                             </div>
 
+ <!-- STATUS -->
 
-                            <!-- STATUS -->
+<div class="starter-deck-status">
+    FIRST EDITION
+</div>
 
-                            <div class="starter-deck-status">
-                                AVAILABLE SOON
-                            </div>
+<button
+    class="booster-add-to-cart"
+    data-product-id="set1-angels-starter-deck"
+    data-product-name="Angels Starter Deck - Set 1"
+    data-product-price="29.99">
+    ADD TO CART
+</button>
 
-                        </div>
+</div>
 
-                    </article>
+</article>
 
 
 
@@ -637,10 +684,9 @@
 
                             <!-- PRICE -->
 
-                            <div class="starter-deck-price">
-                                €49,99
-                            </div>
-
+ <div class="starter-deck-price">
+    €49,99
+</div>
 
                             <!-- WHAT'S INSIDE -->
 
@@ -675,9 +721,17 @@
 
                             <!-- STATUS -->
 
-                            <div class="starter-deck-status">
-                                AVAILABLE SOON
-                            </div>
+ <div class="starter-deck-status">
+    FIRST EDITION
+</div>
+
+<button
+    class="booster-add-to-cart"
+    data-product-id="set1-demons-starter-deck"
+    data-product-name="Demons Starter Deck - Set 1"
+    data-product-price="29.99">
+    ADD TO CART
+</button>
 
                         </div>
 
@@ -864,6 +918,7 @@
     <!-- SCRIPTS -->
 
     <script src="image-protection.js"></script>
+	<script src="script.js"></script>
 
 
 
@@ -885,6 +940,7 @@
 
     </script>
 
+<script type="module" src="auth.js"></script>
 
 </body>
 

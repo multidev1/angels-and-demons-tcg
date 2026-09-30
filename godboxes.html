@@ -263,6 +263,42 @@
                 padding: 30px 20px;
             }
         }
+		
+		/* ADD TO CART BUTTON */
+
+.booster-add-to-cart {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px 20px;
+    box-sizing: border-box;
+
+    background: transparent;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+
+    color: #ffffff;
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.booster-add-to-cart:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+
+    box-shadow:
+        0 0 10px rgba(212, 175, 55, 0.25),
+        0 0 20px rgba(52, 152, 219, 0.10);
+
+    transform: translateY(-2px);
+}
 
     </style>
 </head>
@@ -287,6 +323,10 @@
             <a href="howtoplay.html">How To Play</a>
             <a href="shop.html">Shop</a>
             <a href="faq.html">FAQ</a>
+			<a href="account.html">Account</a>
+			        <a href="cart.html" class="cart-nav">
+        🛒 Cart <span id="headerCartCount">0</span>
+    </a>
 
         </nav>
 
@@ -388,10 +428,18 @@
                         €49,99
                     </div>
 
-                    <div class="god-product-status">
-                        AVAILABLE SOON
-                    </div>
+ <div class="god-product-status">
+ FIRST EDITION
+    AVAILABLE SOON
+</div>
 
+<!<button
+    class="booster-add-to-cart"
+    data-product-id="set1-god-pack-angel-dragon-tail"
+    data-product-name="God Pack Angel of Dragon Tail - Set 1"
+    data-product-price="49.99">
+    ADD TO CART
+<!</button>
                 </div>
 
             </article>
@@ -440,9 +488,17 @@
                         €49,99
                     </div>
 
-                    <div class="god-product-status">
-                        AVAILABLE SOON
-                    </div>
+<div class="god-product-status">
+    FIRST EDITION AVAILABLE SOON
+</div>
+
+<!<button
+    class="booster-add-to-cart"
+    data-product-id="set1-god-pack-celia"
+    data-product-name="God Pack Celia - Set 1"
+    data-product-price="49.99">
+    ADD TO CART
+<!</button>
 
                 </div>
 
@@ -492,9 +548,17 @@
                         €49,99
                     </div>
 
-                    <div class="god-product-status">
-                        AVAILABLE SOON
-                    </div>
+<div class="god-product-status">
+   FIRST EDITION AVAILABLE SOON
+</div>
+
+<!<button
+    class="booster-add-to-cart"
+    data-product-id="set1-god-pack-golden-claw-demon"
+    data-product-name="God Pack Golden Claw Demon - Set 1"
+    data-product-price="49.99">
+    ADD TO CART
+<!</button>
 
                 </div>
 
@@ -544,9 +608,17 @@
                         €49,99
                     </div>
 
-                    <div class="god-product-status">
-                        AVAILABLE SOON
-                    </div>
+<div class="god-product-status">
+    FIRST EDITION AVAILABLE SOON
+</div>
+
+<!<button
+    class="booster-add-to-cart"
+    data-product-id="set1-god-pack-silver-shield-demon"
+    data-product-name="God Pack Silver Shield Demon - Set 1"
+    data-product-price="49.99">
+    ADD TO CART
+<!</button>
 
                 </div>
 
@@ -654,8 +726,9 @@
 
 </footer>
 
-
+<script src="script.js"></script>
 <script src="image-protection.js"></script>
+<script type="module" src="auth.js"></script>
 
 </body>
 </html>
