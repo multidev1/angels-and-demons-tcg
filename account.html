@@ -397,390 +397,602 @@
 
     <script type="module">
 
-        import { initializeApp }
-            from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+    import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-        import {
-            getAuth,
-            createUserWithEmailAndPassword,
-            signInWithEmailAndPassword,
-            signOut,
-            onAuthStateChanged,
-            sendPasswordResetEmail
-        }
-        from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-		
-		        import {
-            getFirestore,
-            doc,
-            setDoc,
-            serverTimestamp
-        }
-        from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+    import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        signOut,
+        onAuthStateChanged,
+        sendPasswordResetEmail
+    }
+    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
-
-        /* =========================================
-           FIREBASE CONFIGURATION
-        ========================================= */
-
-        const firebaseConfig = {
-
-            apiKey: "AIzaSyC8SYGuCnamD8EXHppwDfx3Px4kFREy68Q",
-
-            authDomain:
-                "angels-and-demons-tcg.firebaseapp.com",
-
-            projectId:
-                "angels-and-demons-tcg",
-
-            storageBucket:
-                "angels-and-demons-tcg.firebasestorage.app",
-
-            messagingSenderId:
-                "824060828922",
-
-            appId:
-                "1:824060828922:web:ad0c4f5bf978a738aa3d43",
-
-            measurementId:
-                "G-LT9RPTDKCE"
-        };
+    import {
+        getFirestore,
+        doc,
+        setDoc,
+        serverTimestamp,
+        collection,
+        getDocs,
+        orderBy,
+        query
+    }
+    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
-        /* =========================================
-           INITIALIZE FIREBASE
-        ========================================= */
+    /* =========================================
+       FIREBASE CONFIGURATION
+    ========================================= */
 
-        const app = initializeApp(firebaseConfig);
+    const firebaseConfig = {
 
-        const auth = getAuth(app);
-		
-		const db = getFirestore(app);
+        apiKey: "AIzaSyC8SYGuCnamD8EXHppwDfx3Px4kFREy68Q",
 
+        authDomain:
+            "angels-and-demons-tcg.firebaseapp.com",
 
-        /* =========================================
-           ELEMENTS
-        ========================================= */
+        projectId:
+            "angels-and-demons-tcg",
 
-        const loginSection =
-            document.getElementById("login-section");
+        storageBucket:
+            "angels-and-demons-tcg.firebasestorage.app",
 
-        const registerSection =
-            document.getElementById("register-section");
+        messagingSenderId:
+            "824060828922",
 
-        const accountSection =
-            document.getElementById("account-section");
+        appId:
+            "1:824060828922:web:ad0c4f5bf978a738aa3d43",
 
-        const loginForm =
-            document.getElementById("login-form");
-
-        const registerForm =
-            document.getElementById("register-form");
-
-        const logoutButton =
-            document.getElementById("logout-button");
-
-        const showRegister =
-            document.getElementById("show-register");
-
-        const showLogin =
-            document.getElementById("show-login");
-
-        const forgotPasswordLink =
-            document.getElementById("forgot-password-link");
-
-        const userEmail =
-            document.getElementById("user-email");
-
-        const message =
-            document.getElementById("account-message");
+        measurementId:
+            "G-LT9RPTDKCE"
+    };
 
 
-        /* =========================================
-           MESSAGE FUNCTION
-        ========================================= */
+    /* =========================================
+       INITIALIZE FIREBASE
+    ========================================= */
 
-        function showMessage(text, type = "error") {
+    const app = initializeApp(firebaseConfig);
 
-            message.textContent = text;
+    const auth = getAuth(app);
 
-            message.className =
-                "account-message " + type;
-        }
+    const db = getFirestore(app);
 
 
-        function clearMessage() {
+    /* =========================================
+       ELEMENTS
+    ========================================= */
 
-            message.textContent = "";
+    const loginSection =
+        document.getElementById("login-section");
 
-            message.className =
-                "account-message";
-        }
+    const registerSection =
+        document.getElementById("register-section");
 
+    const accountSection =
+        document.getElementById("account-section");
 
-        /* =========================================
-           SWITCH TO REGISTER
-        ========================================= */
+    const loginForm =
+        document.getElementById("login-form");
 
-        showRegister.addEventListener("click", () => {
+    const registerForm =
+        document.getElementById("register-form");
 
-            loginSection.style.display = "none";
+    const logoutButton =
+        document.getElementById("logout-button");
 
-            registerSection.style.display = "block";
+    const showRegister =
+        document.getElementById("show-register");
 
-            clearMessage();
-        });
+    const showLogin =
+        document.getElementById("show-login");
 
+    const forgotPasswordLink =
+        document.getElementById("forgot-password-link");
 
-        /* =========================================
-           SWITCH TO LOGIN
-        ========================================= */
+    const userEmail =
+        document.getElementById("user-email");
 
-        showLogin.addEventListener("click", () => {
+    const message =
+        document.getElementById("account-message");
 
-            registerSection.style.display = "none";
-
-            loginSection.style.display = "block";
-
-            clearMessage();
-        });
-
-
-        /* =========================================
-           REGISTER
-        ========================================= */
-
-        registerForm.addEventListener("submit", async (event) => {
-
-            event.preventDefault();
-
-            clearMessage();
-
-            const email =
-                document.getElementById("register-email").value.trim();
-
-            const password =
-                document.getElementById("register-password").value;
-
-            const confirmPassword =
-                document.getElementById("register-confirm-password").value;
+    const ordersList =
+        document.getElementById("orders-list");
 
 
-            if (password !== confirmPassword) {
+    /* =========================================
+       MESSAGE FUNCTION
+    ========================================= */
 
-                showMessage(
-                    "Passwords do not match."
+    function showMessage(text, type = "error") {
+
+        message.textContent = text;
+
+        message.className =
+            "account-message " + type;
+    }
+
+
+    function clearMessage() {
+
+        message.textContent = "";
+
+        message.className =
+            "account-message";
+    }
+
+
+    /* =========================================
+       LOAD ORDERS
+    ========================================= */
+
+    async function loadOrders(user) {
+
+        if (!ordersList) return;
+
+        ordersList.innerHTML =
+            "<p>Loading orders...</p>";
+
+        try {
+
+            const ordersRef =
+                collection(
+                    db,
+                    "users",
+                    user.uid,
+                    "orders"
                 );
+
+            const ordersQuery =
+                query(
+                    ordersRef,
+                    orderBy("createdAt", "desc")
+                );
+
+            const snapshot =
+                await getDocs(ordersQuery);
+
+
+            if (snapshot.empty) {
+
+                ordersList.innerHTML = `
+                    <p>
+                        You have no orders yet.
+                    </p>
+                `;
 
                 return;
             }
 
 
-            try {
+            ordersList.innerHTML = "";
 
-                const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-);
 
-const user = userCredential.user;
+            snapshot.forEach((orderDoc) => {
 
-await setDoc(doc(db, "users", user.uid), {
-    email: user.email,
-    createdAt: serverTimestamp()
-});
+                const order =
+                    orderDoc.data();
 
-                showMessage(
-                    "Account created successfully!",
-                    "success"
+
+                const orderElement =
+                    document.createElement("div");
+
+                orderElement.className =
+                    "order-item";
+
+
+                let orderDate =
+                    "Date unavailable";
+
+
+                if (
+                    order.createdAt &&
+                    typeof order.createdAt.toDate === "function"
+                ) {
+
+                    orderDate =
+                        order.createdAt
+                            .toDate()
+                            .toLocaleDateString(
+                                "en-GB"
+                            );
+                }
+
+
+                let itemsHTML =
+                    "";
+
+
+                if (Array.isArray(order.items)) {
+
+                    itemsHTML =
+                        order.items.map(item => `
+                            <div>
+                                ${item.name || "Product"}
+                                × ${item.quantity || 1}
+                            </div>
+                        `).join("");
+
+                }
+
+
+                orderElement.innerHTML = `
+
+                    <div class="order-header">
+
+                        <strong>
+                            Order #${orderDoc.id}
+                        </strong>
+
+                        <span>
+                            ${orderDate}
+                        </span>
+
+                    </div>
+
+                    <div class="order-status">
+
+                        Status:
+                        ${order.status || "Paid"}
+
+                    </div>
+
+                    <div class="order-items">
+
+                        ${itemsHTML}
+
+                    </div>
+
+                    <div class="order-total">
+
+                        Total:
+                        €${Number(order.total || 0).toFixed(2)}
+
+                    </div>
+
+                `;
+
+
+                ordersList.appendChild(
+                    orderElement
                 );
 
-            } catch (error) {
-
-                console.error(error);
-
-                if (error.code === "auth/email-already-in-use") {
-
-                    showMessage(
-                        "An account with this email already exists."
-                    );
-
-                } else if (error.code === "auth/invalid-email") {
-
-                    showMessage(
-                        "Please enter a valid email address."
-                    );
-
-                } else if (error.code === "auth/weak-password") {
-
-                    showMessage(
-                        "Your password is too weak. Use at least 6 characters."
-                    );
-
-                } else {
-
-                    showMessage(
-                        "Registration failed. Please try again."
-                    );
-                }
-            }
-        });
+            });
 
 
-        /* =========================================
-           LOGIN
-        ========================================= */
+        } catch (error) {
 
-        loginForm.addEventListener("submit", async (event) => {
+            console.error(
+                "Error loading orders:",
+                error
+            );
 
-            event.preventDefault();
-
-            clearMessage();
-
-            const email =
-                document.getElementById("login-email").value.trim();
-
-            const password =
-                document.getElementById("login-password").value;
+            ordersList.innerHTML = `
+                <p>
+                    Your orders could not be loaded.
+                </p>
+            `;
+        }
+    }
 
 
-            try {
+    /* =========================================
+       SWITCH TO REGISTER
+    ========================================= */
 
-                await signInWithEmailAndPassword(
+    showRegister.addEventListener("click", () => {
+
+        loginSection.style.display = "none";
+
+        registerSection.style.display = "block";
+
+        clearMessage();
+    });
+
+
+    /* =========================================
+       SWITCH TO LOGIN
+    ========================================= */
+
+    showLogin.addEventListener("click", () => {
+
+        registerSection.style.display = "none";
+
+        loginSection.style.display = "block";
+
+        clearMessage();
+    });
+
+
+    /* =========================================
+       REGISTER
+    ========================================= */
+
+    registerForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        clearMessage();
+
+        const email =
+            document
+                .getElementById("register-email")
+                .value
+                .trim();
+
+        const password =
+            document.getElementById(
+                "register-password"
+            ).value;
+
+        const confirmPassword =
+            document.getElementById(
+                "register-confirm-password"
+            ).value;
+
+
+        if (password !== confirmPassword) {
+
+            showMessage(
+                "Passwords do not match."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            const userCredential =
+                await createUserWithEmailAndPassword(
                     auth,
                     email,
                     password
                 );
 
-                showMessage(
-                    "Login successful!",
-                    "success"
-                );
 
-            } catch (error) {
+            const user =
+                userCredential.user;
 
-                console.error(error);
 
-                if (
-                    error.code === "auth/invalid-credential" ||
-                    error.code === "auth/wrong-password" ||
-                    error.code === "auth/user-not-found"
-                ) {
-
-                    showMessage(
-                        "Incorrect email or password."
-                    );
-
-                } else {
-
-                    showMessage(
-                        "Login failed. Please try again."
-                    );
+            await setDoc(
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                ),
+                {
+                    email: user.email,
+                    createdAt: serverTimestamp()
                 }
-            }
-        });
+            );
 
 
-        /* =========================================
-           FORGOT PASSWORD
-        ========================================= */
-
-        forgotPasswordLink.addEventListener("click", async () => {
-
-            clearMessage();
-
-            const email =
-                document.getElementById("login-email").value.trim();
+            showMessage(
+                "Account created successfully!",
+                "success"
+            );
 
 
-            if (!email) {
+        } catch (error) {
 
-                showMessage(
-                    "Enter your email address first."
-                );
-
-                return;
-            }
+            console.error(error);
 
 
-            try {
-
-                await sendPasswordResetEmail(
-                    auth,
-                    email
-                );
+            if (
+                error.code ===
+                "auth/email-already-in-use"
+            ) {
 
                 showMessage(
-                    "Password reset email sent.",
-                    "success"
+                    "An account with this email already exists."
                 );
 
-            } catch (error) {
-
-                console.error(error);
+            } else if (
+                error.code ===
+                "auth/invalid-email"
+            ) {
 
                 showMessage(
-                    "Could not send password reset email."
+                    "Please enter a valid email address."
                 );
-            }
-        });
 
-
-        /* =========================================
-           LOGOUT
-        ========================================= */
-
-        logoutButton.addEventListener("click", async () => {
-
-            try {
-
-                await signOut(auth);
+            } else if (
+                error.code ===
+                "auth/weak-password"
+            ) {
 
                 showMessage(
-                    "You have been logged out.",
-                    "success"
+                    "Your password is too weak. Use at least 6 characters."
                 );
-
-            } catch (error) {
-
-                console.error(error);
-
-                showMessage(
-                    "Logout failed."
-                );
-            }
-        });
-
-
-        /* =========================================
-           AUTH STATE
-        ========================================= */
-
-        onAuthStateChanged(auth, (user) => {
-
-            if (user) {
-
-                loginSection.style.display = "none";
-
-                registerSection.style.display = "none";
-
-                accountSection.style.display = "block";
-
-                userEmail.textContent =
-                    user.email;
 
             } else {
 
-                accountSection.style.display = "none";
-
-                loginSection.style.display = "block";
-
-                registerSection.style.display = "none";
+                showMessage(
+                    "Registration failed. Please try again."
+                );
             }
-        });
+        }
+    });
 
-    </script>
+
+    /* =========================================
+       LOGIN
+    ========================================= */
+
+    loginForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        clearMessage();
+
+        const email =
+            document
+                .getElementById("login-email")
+                .value
+                .trim();
+
+        const password =
+            document.getElementById(
+                "login-password"
+            ).value;
+
+
+        try {
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            showMessage(
+                "Login successful!",
+                "success"
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+
+            if (
+                error.code ===
+                    "auth/invalid-credential" ||
+                error.code ===
+                    "auth/wrong-password" ||
+                error.code ===
+                    "auth/user-not-found"
+            ) {
+
+                showMessage(
+                    "Incorrect email or password."
+                );
+
+            } else {
+
+                showMessage(
+                    "Login failed. Please try again."
+                );
+            }
+        }
+    });
+
+
+    /* =========================================
+       FORGOT PASSWORD
+    ========================================= */
+
+    forgotPasswordLink.addEventListener("click", async () => {
+
+        clearMessage();
+
+        const email =
+            document
+                .getElementById("login-email")
+                .value
+                .trim();
+
+
+        if (!email) {
+
+            showMessage(
+                "Enter your email address first."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            await sendPasswordResetEmail(
+                auth,
+                email
+            );
+
+
+            showMessage(
+                "Password reset email sent.",
+                "success"
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Could not send password reset email."
+            );
+        }
+    });
+
+
+    /* =========================================
+       LOGOUT
+    ========================================= */
+
+    logoutButton.addEventListener("click", async () => {
+
+        try {
+
+            await signOut(auth);
+
+            showMessage(
+                "You have been logged out.",
+                "success"
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Logout failed."
+            );
+        }
+    });
+
+
+    /* =========================================
+       AUTH STATE
+    ========================================= */
+
+    onAuthStateChanged(auth, (user) => {
+
+        if (user) {
+
+            loginSection.style.display = "none";
+
+            registerSection.style.display = "none";
+
+            accountSection.style.display = "block";
+
+            userEmail.textContent =
+                user.email;
+
+
+            loadOrders(user);
+
+
+        } else {
+
+            accountSection.style.display = "none";
+
+            loginSection.style.display = "block";
+
+            registerSection.style.display = "none";
+        }
+    });
+
+</script>
 
 </body>
 
