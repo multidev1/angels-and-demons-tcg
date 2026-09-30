@@ -902,45 +902,80 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================================
-       CHECKOUT
-    ========================================= */
+  /* =========================================
+   STRIPE CHECKOUT
+========================================= */
 
-    const checkoutButton =
-        document.getElementById(
-            "checkoutButton"
-        );
+const checkoutButton =
+    document.getElementById("checkoutButton");
 
+if (checkoutButton) {
 
-    if (checkoutButton) {
+    checkoutButton.addEventListener("click", async function () {
 
-        checkoutButton.addEventListener(
-            "click",
-            function () {
+        const cart = getCart();
 
-                const cart = getCart();
+        if (cart.length === 0) {
 
+            alert("Your cart is empty.");
 
-                if (cart.length === 0) {
+            return;
 
-                    alert(
-                        "Your cart is empty."
-                    );
+        }
 
-                    return;
+        checkoutButton.disabled = true;
+        checkoutButton.textContent = "PROCESSING...";
 
+        try {
+
+            const response = await fetch(
+                "https://angels-and-demons-checkout.dewitrik8.workers.dev/",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        items: cart.map(item => ({
+                            id: item.id,
+                            name: item.name,
+                            price: item.price,
+                            quantity: item.quantity
+                        }))
+                    })
                 }
+            );
 
+            const data = await response.json();
 
-                alert(
-                    "Checkout will be available soon."
+            if (!response.ok || !data.url) {
+
+                throw new Error(
+                    data.error || "Checkout could not be created."
                 );
 
             }
-        );
 
-    }
+            window.location.href = data.url;
 
+        } catch (error) {
+
+            console.error("Checkout error:", error);
+
+            alert(
+                "Checkout could not be started. Please try again."
+            );
+
+            checkoutButton.disabled = false;
+            checkoutButton.textContent = "CHECKOUT";
+
+        }
+
+    });
+
+}
 
     /* =========================================
        INITIALIZE
