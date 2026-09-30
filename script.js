@@ -902,78 +902,383 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-  /* =========================================
+/* =========================================
    STRIPE CHECKOUT
 ========================================= */
 
 const checkoutButton =
     document.getElementById("checkoutButton");
 
-if (checkoutButton) {
+const shippingCountry =
+    document.getElementById("shippingCountry");
 
-    checkoutButton.addEventListener("click", async function () {
+const shippingPricePreview =
+    document.getElementById("shippingPricePreview");
 
-        const cart = getCart();
+const cartShipping =
+    document.getElementById("cartShipping");
 
-        if (cart.length === 0) {
 
-            alert("Your cart is empty.");
+/* =========================================
+   SHIPPING PRICES
+========================================= */
 
-            return;
+const EU_COUNTRIES = [
+    "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR",
+    "DE","GR","HU","IE","IT","LV","LT","LU","MT","NL",
+    "PL","PT","RO","SK","SI","ES","SE"
+];
 
+const SHIPPING_PRICES = {
+
+    BE: 9.99,
+    EU: 29.99,
+    US: 54.99,
+    WORLD: 74.99
+
+};
+
+
+/* =========================================
+   GET SHIPPING PRICE
+========================================= */
+
+function getShippingPrice(country) {
+
+    if (!country) {
+        return null;
+    }
+
+    if (country === "BE") {
+        return SHIPPING_PRICES.BE;
+    }
+
+    if (EU_COUNTRIES.includes(country)) {
+        return SHIPPING_PRICES.EU;
+    }
+
+    if (country === "US") {
+        return SHIPPING_PRICES.US;
+    }
+
+    return SHIPPING_PRICES.WORLD;
+
+}
+
+
+/* =========================================
+   UPDATE SHIPPING DISPLAY
+========================================= */
+
+function updateShippingDisplay() {
+
+    if (!shippingCountry) {
+        return;
+    }
+
+    const country =
+        shippingCountry.value;
+
+    const shippingPrice =
+        getShippingPrice(country);
+
+
+    if (shippingPrice === null) {
+
+        if (cartShipping) {
+            cartShipping.textContent = "—";
         }
 
-        checkoutButton.disabled = true;
-        checkoutButton.textContent = "PROCESSING...";
+        if (shippingPricePreview) {
+            shippingPricePreview.style.display = "none";
+            shippingPricePreview.textContent = "";
+        }
 
-        try {
+        updateCartTotalWithShipping(null);
 
-            const response = await fetch(
-                "https://angels-and-demons-checkout.dewitrik8.workers.dev/",
-                {
-                    method: "POST",
+        return;
+    }
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
 
-                    body: JSON.stringify({
-                        items: cart.map(item => ({
-                            id: item.id,
-                            name: item.name,
-                            price: item.price,
-                            quantity: item.quantity
-                        }))
-                    })
-                }
-            );
+    const formattedPrice =
+        formatPrice(shippingPrice);
 
-            const data = await response.json();
 
-            if (!response.ok || !data.url) {
+    if (cartShipping) {
+        cartShipping.textContent =
+            formattedPrice;
+    }
 
-                throw new Error(
-                    data.error || "Checkout could not be created."
+
+    if (shippingPricePreview) {
+
+        shippingPricePreview.style.display =
+            "block";
+
+        shippingPricePreview.textContent =
+            "Shipping: " + formattedPrice;
+
+    }
+
+
+    updateCartTotalWithShipping(
+        shippingPrice
+    );
+
+}
+
+
+/* =========================================
+   UPDATE TOTAL INCLUDING SHIPPING
+========================================= */
+
+function updateCartTotalWithShipping(
+    shippingPrice
+) {
+
+    const cartTotal =
+        document.getElementById(
+            "cartTotal"
+        );
+
+    if (!cartTotal) {
+        return;
+    }
+
+
+    const cart = getCart();
+
+
+    const subtotal =
+        cart.reduce(
+            function (total, item) {
+
+                return total +
+                    (
+                        Number(item.price) *
+                        Number(item.quantity)
+                    );
+
+            },
+            0
+        );
+
+
+    const shipping =
+        Number(shippingPrice || 0);
+
+
+    const total =
+        subtotal + shipping;
+
+
+    cartTotal.textContent =
+        formatPrice(total);
+
+}
+
+
+/* =========================================
+   COUNTRY CHANGE
+========================================= */
+
+if (shippingCountry) {
+
+    shippingCountry.addEventListener(
+        "change",
+        function () {
+
+            updateShippingDisplay();
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   STRIPE CHECKOUT
+========================================= */
+
+if (checkoutButton) {
+
+    checkoutButton.addEventListener(
+        "click",
+        async function () {
+
+            const cart = getCart();
+
+
+            /* -----------------------------------------
+               CART EMPTY
+            ----------------------------------------- */
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty."
                 );
+
+                return;
 
             }
 
-            window.location.href = data.url;
 
-        } catch (error) {
+            /* -----------------------------------------
+               SHIPPING COUNTRY REQUIRED
+            ----------------------------------------- */
 
-            console.error("Checkout error:", error);
+            if (
+                !shippingCountry ||
+                !shippingCountry.value
+            ) {
 
-            alert(
-                "Checkout could not be started. Please try again."
-            );
+                alert(
+                    "Please select your shipping country before checkout."
+                );
 
-            checkoutButton.disabled = false;
-            checkoutButton.textContent = "CHECKOUT";
+                if (shippingCountry) {
+                    shippingCountry.focus();
+                }
+
+                return;
+
+            }
+
+
+            const selectedCountry =
+                shippingCountry.value;
+
+
+            const shippingPrice =
+                getShippingPrice(
+                    selectedCountry
+                );
+
+
+            if (shippingPrice === null) {
+
+                alert(
+                    "Shipping to this country is currently unavailable."
+                );
+
+                return;
+
+            }
+
+
+            /* -----------------------------------------
+               BUTTON
+            ----------------------------------------- */
+
+            checkoutButton.disabled =
+                true;
+
+            checkoutButton.textContent =
+                "PROCESSING...";
+
+
+            try {
+
+                /* -----------------------------------------
+                   SEND CART + COUNTRY TO WORKER
+                ----------------------------------------- */
+
+                const response =
+                    await fetch(
+                        "https://angels-and-demons-checkout.dewitrik8.workers.dev/",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                items:
+                                    cart.map(
+                                        function (item) {
+
+                                            return {
+                                                id:
+                                                    item.id,
+
+                                                name:
+                                                    item.name,
+
+                                                price:
+                                                    item.price,
+
+                                                quantity:
+                                                    item.quantity
+                                            };
+
+                                        }
+                                    ),
+
+                                shippingCountry:
+                                    selectedCountry
+
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                /* -----------------------------------------
+                   WORKER ERROR
+                ----------------------------------------- */
+
+                if (
+                    !response.ok ||
+                    !data.url
+                ) {
+
+                    throw new Error(
+                        data.error ||
+                        "Checkout could not be created."
+                    );
+
+                }
+
+
+                /* -----------------------------------------
+                   GO TO STRIPE
+                ----------------------------------------- */
+
+                window.location.href =
+                    data.url;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Checkout error:",
+                    error
+                );
+
+
+                alert(
+                    error.message ||
+                    "Checkout could not be started. Please try again."
+                );
+
+
+                checkoutButton.disabled =
+                    false;
+
+                checkoutButton.textContent =
+                    "CHECKOUT";
+
+            }
 
         }
-
-    });
+    );
 
 }
 
