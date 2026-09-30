@@ -383,6 +383,14 @@
             sendPasswordResetEmail
         }
         from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+		
+		        import {
+            getFirestore,
+            doc,
+            setDoc,
+            serverTimestamp
+        }
+        from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
         /* =========================================
@@ -420,6 +428,8 @@
         const app = initializeApp(firebaseConfig);
 
         const auth = getAuth(app);
+		
+		const db = getFirestore(app);
 
 
         /* =========================================
@@ -542,11 +552,18 @@
 
             try {
 
-                await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
+                const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+);
+
+const user = userCredential.user;
+
+await setDoc(doc(db, "users", user.uid), {
+    email: user.email,
+    createdAt: serverTimestamp()
+});
 
                 showMessage(
                     "Account created successfully!",
@@ -738,8 +755,6 @@
         });
 
     </script>
-	
-	<script type="module" src="auth.js"></script>
 
 </body>
 
