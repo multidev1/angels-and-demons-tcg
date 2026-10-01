@@ -3871,3 +3871,27 @@ img.protected-image {
     box-shadow: 0 0 25px rgba(212, 175, 55, 0.65);
     transform: translateY(-2px);
 }
+
+.discord-button {
+    display: inline-block;
+    margin: 8px auto 20px;
+    padding: 10px 20px;
+    background: #5865F2;
+    color: #fff;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 30px;
+    border: 2px solid #5865F2;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(88, 101, 242, 0.3);
+}
+
+.discord-button:hover {
+    background: #111;
+    color: #fff;
+    box-shadow: 0 0 18px rgba(88, 101, 242, 0.6);
+    transform: translateY(-2px);
+}
+}
