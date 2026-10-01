@@ -911,6 +911,155 @@ html {
     line-height: 1.6;
 }
 
+/* =========================================
+   FIRST EDITION PRE-ORDER BANNER
+========================================= */
+
+.shop-preorder {
+    width: 100%;
+    margin: 50px auto 70px;
+    padding: 55px 30px;
+    box-sizing: border-box;
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        rgba(20, 20, 30, 0.95),
+        rgba(10, 10, 15, 0.98)
+    );
+
+    border: 1px solid rgba(212, 175, 55, 0.55);
+    border-radius: 16px;
+
+    box-shadow:
+        0 0 20px rgba(212, 175, 55, 0.15),
+        inset 0 0 25px rgba(255, 255, 255, 0.02);
+}
+
+.shop-preorder-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.shop-preorder-label {
+    display: inline-block;
+    margin-bottom: 15px;
+
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 4px;
+
+    color: #d4af37;
+}
+
+.shop-preorder h2 {
+    margin: 0 0 18px;
+
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.15),
+        0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.shop-preorder p {
+    max-width: 700px;
+    margin: 0 auto 35px;
+
+    font-size: 17px;
+    line-height: 1.7;
+
+    color: #cfcfcf;
+}
+
+.shop-preorder-info {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0;
+
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.shop-preorder-info > div {
+    flex: 1;
+    padding: 20px 15px;
+
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.shop-preorder-info > div:first-child {
+    border-left: none;
+}
+
+.shop-preorder-info strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 25px;
+    font-weight: 800;
+
+    color: #d4af37;
+}
+
+.shop-preorder-info span {
+    display: block;
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+
+    color: #999999;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .shop-preorder {
+        margin: 35px auto 50px;
+        padding: 40px 20px;
+        border-radius: 12px;
+    }
+
+    .shop-preorder h2 {
+        font-size: 28px;
+        line-height: 1.2;
+    }
+
+    .shop-preorder p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .shop-preorder-info {
+        flex-direction: column;
+    }
+
+    .shop-preorder-info > div {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .shop-preorder-info > div:first-child {
+        border-top: none;
+    }
+
+    .shop-preorder-info strong {
+        font-size: 23px;
+    }
+
+}
+
 
 /* =========================
    SHOP GRID
@@ -3670,4 +3819,28 @@ img.protected-image {
 .footer-logo {
     width: 200px;
     height: auto;
+}
+
+/* =========================================
+   PDF DOWNLOAD BUTTONS
+========================================= */
+
+.download-pdf {
+    display: inline-block;
+    margin: 20px 0 30px;
+    padding: 14px 28px;
+    background: #2874a4;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid #5dade2;
+    border-radius: 6px;
+    transition: all 0.25s ease;
+}
+
+.download-pdf:hover {
+    background: #d4af37;
+    color: #111;
+    border-color: #d4af37;
+    transform: translateY(-2px);
 }
