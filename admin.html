@@ -195,6 +195,49 @@
             color: #888;
             padding: 20px 0;
         }
+		
+		.order-view-button {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: inherit;
+}
+
+.order-view-button:hover {
+    background: #d4af37;
+    color: #111;
+}
+
+.order-details-row td {
+    background: #151515;
+    padding: 20px;
+}
+
+.order-details {
+    line-height: 1.7;
+}
+
+.order-details h3 {
+    color: #d4af37;
+    margin-top: 0;
+}
+
+.order-details strong {
+    color: #fff;
+}
+
+.order-details-section {
+    margin-bottom: 20px;
+}
+
+.order-details-address {
+    white-space: pre-line;
+    color: #ccc;
+}
 
         @media (max-width: 700px) {
             .stats {
@@ -279,12 +322,13 @@
                             <th>ORDERED</th>
                             <th>PAYMENT</th>
                             <th>STATUS</th>
+							<th>DETAILS</th>
                         </tr>
                     </thead>
 
                     <tbody id="orders-table-body">
                         <tr>
-                            <td colspan="8">
+                            <td colspan="9">
                                 Loading orders...
                             </td>
                         </tr>
@@ -750,8 +794,17 @@
                     </td>
 
                     <td>
-                        ${escapeHtml(orderStatus)}
-                    </td>
+    ${escapeHtml(orderStatus)}
+</td>
+
+<td>
+    <button
+        class="order-view-button"
+        data-order-id="${escapeHtml(order.id)}"
+    >
+        VIEW
+    </button>
+</td>
 
                 `;
 
@@ -768,6 +821,224 @@
                 formatEuro(revenue);
         }
 
+function showOrderDetails(order) {
+
+    const existing =
+        document.getElementById("order-details-" + order.id);
+
+    if (existing) {
+        existing.remove();
+        return;
+    }
+
+    const items =
+        Array.isArray(order.items)
+            ? order.items
+            : [];
+
+    const productsHTML =
+        items.length
+            ? items.map(item => `
+                <div>
+                    ${escapeHtml(item.name || item.id || "Unknown product")}
+                    × ${Number(item.quantity) || 0}
+                </div>
+            `).join("")
+            : "No products";
+
+    const address =
+        order.shippingAddress
+            ? formatShippingAddress(order.shippingAddress)
+            : "No shipping address";
+
+    const row =
+        document.createElement("tr");
+
+    row.id =
+        "order-details-" + order.id;
+
+    row.className =
+        "order-details-row";
+
+    row.innerHTML = `
+        <td colspan="9">
+
+            <div class="order-details">
+
+                <h3>
+                    ORDER DETAILS
+                </h3>
+
+                <div class="order-details-section">
+
+                    <strong>Order ID:</strong>
+                    ${escapeHtml(order.id)}
+
+                    <br>
+
+                    <strong>Customer:</strong>
+                    ${escapeHtml(order.customerName || "Unknown")}
+
+                    <br>
+
+                    <strong>Email:</strong>
+                    ${escapeHtml(order.customerEmail || order.email || "Unknown")}
+
+                    <br>
+
+                    <strong>Ordered:</strong>
+                    ${formatDate(order.createdAt)}
+
+                </div>
+
+                <div class="order-details-section">
+
+                    <strong>Products:</strong>
+
+                    <div>
+                        ${productsHTML}
+                    </div>
+
+                </div>
+
+                <div class="order-details-section">
+
+                    <strong>Subtotal:</strong>
+                    ${formatEuro(order.subtotal)}
+
+                    <br>
+
+                    <strong>Shipping:</strong>
+                    ${formatEuro(order.shipping)}
+
+                    <br>
+
+                    <strong>Total:</strong>
+                    ${formatEuro(order.total)}
+
+                </div>
+
+                <div class="order-details-section">
+
+                    <strong>Payment:</strong>
+                    ${escapeHtml(order.paymentStatus || "unknown")}
+
+                    <br>
+
+                    <strong>Order Status:</strong>
+                    ${escapeHtml(order.orderStatus || "NEW")}
+
+                </div>
+
+                <div class="order-details-section">
+
+                    <strong>Shipping Country:</strong>
+                    ${escapeHtml(order.shippingCountry || "Unknown")}
+
+                    <br><br>
+
+                    <strong>Shipping Address:</strong>
+
+                    <div class="order-details-address">
+                        ${escapeHtml(address)}
+                    </div>
+
+                </div>
+
+                <div class="order-details-section">
+
+                    <strong>Tracking Number:</strong>
+                    ${escapeHtml(order.trackingNumber || "Not added")}
+
+                    <br>
+
+                    <strong>Stripe Session:</strong>
+                    ${escapeHtml(order.stripeSessionId || "")}
+
+                    <br>
+
+                    <strong>Payment Intent:</strong>
+                    ${escapeHtml(order.paymentIntentId || "")}
+
+                </div>
+
+            </div>
+
+        </td>
+    `;
+
+    const orderRows =
+        Array.from(
+            ordersTableBody.querySelectorAll("tr")
+        );
+
+    const targetRow =
+        orderRows.find(row => {
+
+            const idElement =
+                row.querySelector(".order-id");
+
+            return idElement &&
+                idElement.textContent.trim() === order.id;
+
+        });
+
+    if (targetRow) {
+
+        targetRow.after(row);
+
+    }
+}
+
+
+function formatShippingAddress(address) {
+
+    if (!address) {
+        return "";
+    }
+
+    if (typeof address === "string") {
+        return address;
+    }
+
+    return [
+        address.name,
+        address.line1,
+        address.line2,
+        address.postal_code,
+        address.city,
+        address.state,
+        address.country
+    ]
+        .filter(Boolean)
+        .join("\n");
+}
+
+
+
+
+
+ordersTableBody
+    .querySelectorAll(".order-view-button")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const orderId =
+                button.dataset.orderId;
+
+            const order =
+                ordersForExport.find(
+                    item => item.id === orderId
+                );
+
+            if (order) {
+                showOrderDetails(order);
+            }
+
+        });
+
+    });
 
         // =========================================
         // HTML ESCAPE
