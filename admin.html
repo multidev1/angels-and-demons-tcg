@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Angels & Demons TCG | Admin</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background: #111;
+            color: #fff;
+            font-family: "Exo 2", Arial, sans-serif;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .admin-header h1 {
+            color: #d4af37;
+            margin: 0;
+        }
+
+        .admin-user {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .admin-card {
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+        }
+
+        .admin-card h2 {
+            color: #d4af37;
+            margin-top: 0;
+        }
+
+        .admin-button {
+            background: #d4af37;
+            color: #111;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+        }
+
+        .admin-button:hover {
+            background: #fff;
+        }
+
+        .logout-button {
+            background: #333;
+            color: #fff;
+        }
+
+        .logout-button:hover {
+            background: #555;
+        }
+
+        .admin-message {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .admin-message.error {
+            display: block;
+            background: #3a1515;
+            border: 1px solid #8b3030;
+            color: #ff9999;
+        }
+
+        .admin-message.success {
+            display: block;
+            background: #153a1f;
+            border: 1px solid #308b48;
+            color: #99ffad;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-box {
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th {
+            background: #222;
+            color: #d4af37;
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #444;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #292929;
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: #202020;
+        }
+
+        .order-id {
+            font-family: monospace;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .products {
+            line-height: 1.6;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-paid {
+            background: #163d20;
+            color: #7dff9a;
+        }
+
+        .status-pending {
+            background: #443b16;
+            color: #ffe77d;
+        }
+
+        .status-failed {
+            background: #421919;
+            color: #ff8585;
+        }
+
+        .status-unknown {
+            background: #333;
+            color: #bbb;
+        }
+
+        .empty {
+            color: #888;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 700px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-container {
+                margin: 20px auto;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="admin-container">
+
+        <div class="admin-header">
+            <div>
+                <h1>ADMIN DASHBOARD</h1>
+                <div class="admin-user" id="admin-user">
+                    Checking administrator access...
+                </div>
+            </div>
+
+            <div>
+                <button class="admin-button" id="refresh-button">
+                    REFRESH ORDERS
+                </button>
+				
+				<button class="admin-button" id="export-txt-button">
+                     EXPORT TXT
+                </button>
+
+                <button class="admin-button" id="export-button">
+                    EXPORT EXCEL
+                </button>
+
+                <button class="admin-button logout-button" id="logout-button">
+                    LOG OUT
+                </button>
+            </div>
+        </div>
+
+        <div id="admin-message" class="admin-message"></div>
+
+        <section class="stats">
+
+            <div class="stat-box">
+                <div class="stat-number" id="total-orders">0</div>
+                <div class="stat-label">TOTAL ORDERS</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-number" id="paid-orders">0</div>
+                <div class="stat-label">PAID ORDERS</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-number" id="total-revenue">€0.00</div>
+                <div class="stat-label">TOTAL REVENUE</div>
+            </div>
+
+        </section>
+
+        <section class="admin-card">
+
+            <h2>ORDERS</h2>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ORDER ID</th>
+                            <th>CUSTOMER</th>
+                            <th>PRODUCTS</th>
+                            <th>QUANTITY</th>
+                            <th>TOTAL</th>
+                            <th>ORDERED</th>
+                            <th>PAYMENT</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="orders-table-body">
+                        <tr>
+                            <td colspan="8">
+                                Loading orders...
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Excel export library -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+
+    <script type="module">
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+        import {
+            getFirestore,
+            collectionGroup,
+            getDocs
+        } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+        // =========================================
+        // FIREBASE
+        // =========================================
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC8SYGuCnamD8EXHppwDfx3Px4kFREy68Q",
+            authDomain: "angels-and-demons-tcg.firebaseapp.com",
+            projectId: "angels-and-demons-tcg",
+            storageBucket: "angels-and-demons-tcg.firebasestorage.app",
+            messagingSenderId: "824060828922",
+            appId: "1:824060828922:web:ad0c4f5bf978a738aa3d43",
+            measurementId: "G-LT9RPTDKCE"
+        };
+
+        const app = initializeApp(firebaseConfig);
+
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+
+        // =========================================
+        // YOUR ADMIN UID
+        // =========================================
+
+        const ADMIN_UID =
+            "GayS9j4SW7Tb9wGKrCQeApZRqxY2";
+
+
+        // =========================================
+        // ELEMENTS
+        // =========================================
+
+        const adminUser =
+            document.getElementById("admin-user");
+
+        const adminMessage =
+            document.getElementById("admin-message");
+
+        const ordersTableBody =
+            document.getElementById("orders-table-body");
+
+        const totalOrders =
+            document.getElementById("total-orders");
+
+        const paidOrders =
+            document.getElementById("paid-orders");
+
+        const totalRevenue =
+            document.getElementById("total-revenue");
+
+        const refreshButton =
+            document.getElementById("refresh-button");
+			
+		const exportTxtButton =
+			document.getElementById("export-txt-button");
+
+        const exportButton =
+            document.getElementById("export-button");
+
+        const logoutButton =
+            document.getElementById("logout-button");
+
+
+        // =========================================
+        // STORED ORDERS
+        // =========================================
+
+        let ordersForExport = [];
+
+
+        // =========================================
+        // MESSAGE
+        // =========================================
+
+        function showMessage(message, type = "error") {
+
+            adminMessage.textContent = message;
+
+            adminMessage.className =
+                "admin-message " + type;
+        }
+
+
+        function clearMessage() {
+
+            adminMessage.textContent = "";
+
+            adminMessage.className =
+                "admin-message";
+        }
+
+
+        // =========================================
+        // FORMAT DATE
+        // =========================================
+
+        function formatDate(timestamp) {
+
+            if (!timestamp) {
+                return "Unknown";
+            }
+
+            try {
+
+                const date =
+                    timestamp.toDate
+                        ? timestamp.toDate()
+                        : new Date(timestamp);
+
+                return date.toLocaleString(
+                    "en-GB",
+                    {
+                        dateStyle: "medium",
+                        timeStyle: "short"
+                    }
+                );
+
+            } catch {
+
+                return "Unknown";
+            }
+        }
+
+
+        // =========================================
+        // FORMAT EURO
+        // =========================================
+
+        function formatEuro(value) {
+
+            const number =
+                Number(value) || 0;
+
+            return new Intl.NumberFormat(
+                "en-GB",
+                {
+                    style: "currency",
+                    currency: "EUR"
+                }
+            ).format(number);
+        }
+
+
+        // =========================================
+        // PAYMENT STATUS
+        // =========================================
+
+        function paymentClass(status) {
+
+            const value =
+                String(status || "")
+                    .toLowerCase();
+
+            if (value === "paid") {
+                return "status status-paid";
+            }
+
+            if (value === "pending") {
+                return "status status-pending";
+            }
+
+            if (value === "failed") {
+                return "status status-failed";
+            }
+
+            return "status status-unknown";
+        }
+
+
+        // =========================================
+        // LOAD ORDERS
+        // =========================================
+
+        async function loadOrders() {
+
+            clearMessage();
+
+            ordersTableBody.innerHTML = `
+                <tr>
+                    <td colspan="8">
+                        Loading orders...
+                    </td>
+                </tr>
+            `;
+
+            try {
+
+                /*
+                 * Reads every users/{uid}/orders/{orderId}
+                 * document through collectionGroup().
+                 *
+                 * Firestore Rules ensure only the admin
+                 * account can read these documents.
+                 */
+
+                const ordersRef =
+                    collectionGroup(db, "orders");
+
+                const snapshot =
+                    await getDocs(ordersRef);
+
+
+                const orders = [];
+
+
+                snapshot.forEach((docSnap) => {
+
+                    const data =
+                        docSnap.data();
+
+                    orders.push({
+                        id: docSnap.id,
+                        ...data
+                    });
+
+                });
+
+
+                // Sort newest first.
+                orders.sort((a, b) => {
+
+                    const aTime =
+                        a.createdAt?.toMillis
+                            ? a.createdAt.toMillis()
+                            : 0;
+
+                    const bTime =
+                        b.createdAt?.toMillis
+                            ? b.createdAt.toMillis()
+                            : 0;
+
+                    return bTime - aTime;
+                });
+
+
+                ordersForExport = orders;
+
+
+                renderOrders(orders);
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to load orders:",
+                    error
+                );
+
+                ordersTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8">
+                            Could not load orders.
+                        </td>
+                    </tr>
+                `;
+
+                showMessage(
+                    "Could not load orders. Check your Firestore Rules and browser console."
+                );
+            }
+        }
+
+
+        // =========================================
+        // RENDER ORDERS
+        // =========================================
+
+        function renderOrders(orders) {
+
+            totalOrders.textContent =
+                orders.length;
+
+
+            let paidCount = 0;
+            let revenue = 0;
+
+
+            if (orders.length === 0) {
+
+                ordersTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="empty">
+                            No orders found yet.
+                        </td>
+                    </tr>
+                `;
+
+                paidOrders.textContent = "0";
+                totalRevenue.textContent = "€0.00";
+
+                return;
+            }
+
+
+            ordersTableBody.innerHTML = "";
+
+
+            orders.forEach((order) => {
+
+                const items =
+                    Array.isArray(order.items)
+                        ? order.items
+                        : [];
+
+
+                const quantity =
+                    items.reduce(
+                        (sum, item) =>
+                            sum + (Number(item.quantity) || 0),
+                        0
+                    );
+
+
+                const products =
+                    items.map(item => {
+
+                        const name =
+                            item.name || item.id || "Unknown product";
+
+                        const qty =
+                            Number(item.quantity) || 0;
+
+                        return `
+                            ${escapeHtml(name)}
+                            × ${qty}
+                        `;
+
+                    }).join("<br>");
+
+
+                const paymentStatus =
+                    order.paymentStatus ||
+                    order.payment_status ||
+                    order.status ||
+                    "unknown";
+
+
+                if (
+                    String(paymentStatus)
+                        .toLowerCase() === "paid"
+                ) {
+                    paidCount++;
+                }
+
+
+                const total =
+                    Number(order.total) || 0;
+
+                revenue += total;
+
+
+                const customerEmail =
+                    order.customerEmail ||
+                    order.email ||
+                    "Unknown";
+
+
+                const customerName =
+                    order.customerName ||
+                    customerEmail;
+
+
+                const orderStatus =
+                    order.orderStatus ||
+                    "NEW";
+
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+                        <div class="order-id">
+                            ${escapeHtml(order.id)}
+                        </div>
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${escapeHtml(customerName)}
+                        </strong>
+                        <br>
+                        <small>
+                            ${escapeHtml(customerEmail)}
+                        </small>
+                    </td>
+
+                    <td class="products">
+                        ${products || "No products"}
+                    </td>
+
+                    <td>
+                        ${quantity}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${formatEuro(total)}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${formatDate(order.createdAt)}
+                    </td>
+
+                    <td>
+                        <span class="${paymentClass(paymentStatus)}">
+                            ${escapeHtml(paymentStatus)}
+                        </span>
+                    </td>
+
+                    <td>
+                        ${escapeHtml(orderStatus)}
+                    </td>
+
+                `;
+
+
+                ordersTableBody.appendChild(row);
+
+            });
+
+
+            paidOrders.textContent =
+                paidCount;
+
+            totalRevenue.textContent =
+                formatEuro(revenue);
+        }
+
+
+        // =========================================
+        // HTML ESCAPE
+        // =========================================
+
+        function escapeHtml(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+// =========================================
+// TXT EXPORT
+// =========================================
+
+function exportTxt() {
+
+    if (!ordersForExport.length) {
+
+        showMessage(
+            "There are no orders to export."
+        );
+
+        return;
+    }
+
+    let text = "";
+
+    text += "ANGELS & DEMONS TCG - ORDERS\n";
+    text += "========================================\n\n";
+
+
+    ordersForExport.forEach((order, index) => {
+
+        const items =
+            Array.isArray(order.items)
+                ? order.items
+                : [];
+
+
+        text += `ORDER ${index + 1}\n`;
+        text += "----------------------------------------\n";
+
+        text += `Order ID: ${order.id || ""}\n`;
+
+        text += `Customer: ${
+            order.customerName || ""
+        }\n`;
+
+        text += `Email: ${
+            order.customerEmail ||
+            order.email ||
+            ""
+        }\n`;
+
+
+        text += "Products:\n";
+
+        if (items.length) {
+
+            items.forEach(item => {
+
+                text += `  - ${
+                    item.name || item.id || "Unknown product"
+                } x${
+                    Number(item.quantity) || 0
+                }\n`;
+
+            });
+
+        } else {
+
+            text += "  - No products\n";
+        }
+
+
+        text += `Total: ${
+            formatEuro(order.total)
+        }\n`;
+
+        text += `Payment Status: ${
+            order.paymentStatus ||
+            order.payment_status ||
+            ""
+        }\n`;
+
+        text += `Order Status: ${
+            order.orderStatus ||
+            "NEW"
+        }\n`;
+
+        text += `Ordered: ${
+            formatDate(order.createdAt)
+        }\n`;
+
+        text += `Tracking Number: ${
+            order.trackingNumber ||
+            ""
+        }\n`;
+
+        text += "\n";
+        text += "========================================\n\n";
+
+    });
+
+
+    const blob =
+        new Blob(
+            [text],
+            {
+                type: "text/plain;charset=utf-8"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "angels-and-demons-orders.txt";
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    URL.revokeObjectURL(url);
+
+
+    showMessage(
+        "Orders exported successfully as TXT.",
+        "success"
+    );
+}
+
+        // =========================================
+        // EXCEL EXPORT
+        // =========================================
+
+        function exportExcel() {
+
+            if (!ordersForExport.length) {
+
+                showMessage(
+                    "There are no orders to export."
+                );
+
+                return;
+            }
+
+
+            const rows = [];
+
+
+            ordersForExport.forEach(order => {
+
+                const items =
+                    Array.isArray(order.items)
+                        ? order.items
+                        : [];
+
+
+                const products =
+                    items.map(item =>
+                        `${item.name || item.id} × ${item.quantity || 0}`
+                    ).join(" | ");
+
+
+                const quantity =
+                    items.reduce(
+                        (sum, item) =>
+                            sum + (Number(item.quantity) || 0),
+                        0
+                    );
+
+
+                rows.push({
+
+                    "Order ID":
+                        order.id || "",
+
+                    "Customer":
+                        order.customerName ||
+                        "",
+
+                    "Email":
+                        order.customerEmail ||
+                        order.email ||
+                        "",
+
+                    "Products":
+                        products,
+
+                    "Quantity":
+                        quantity,
+
+                    "Total":
+                        Number(order.total) || 0,
+
+                    "Payment Status":
+                        order.paymentStatus ||
+                        order.payment_status ||
+                        "",
+
+                    "Order Status":
+                        order.orderStatus ||
+                        "NEW",
+
+                    "Order Date":
+                        formatDate(order.createdAt),
+
+                    "Tracking Number":
+                        order.trackingNumber ||
+                        ""
+
+                });
+
+            });
+
+
+            const worksheet =
+                XLSX.utils.json_to_sheet(rows);
+
+
+            const workbook =
+                XLSX.utils.book_new();
+
+
+            XLSX.utils.book_append_sheet(
+                workbook,
+                worksheet,
+                "Orders"
+            );
+
+
+            XLSX.writeFile(
+                workbook,
+                "angels-and-demons-orders.xlsx"
+            );
+
+
+            showMessage(
+                "Orders exported successfully.",
+                "success"
+            );
+        }
+
+
+        // =========================================
+        // BUTTONS
+        // =========================================
+
+        refreshButton.addEventListener(
+            "click",
+            loadOrders
+        );
+
+
+		exportTxtButton.addEventListener(
+			"click",
+			exportTxt
+		);
+
+        exportButton.addEventListener(
+            "click",
+            exportExcel
+        );
+
+
+        logoutButton.addEventListener(
+            "click",
+            async () => {
+
+                await signOut(auth);
+
+                window.location.href =
+                    "account.html";
+            }
+        );
+
+
+        // =========================================
+        // AUTHENTICATION
+        // =========================================
+
+        onAuthStateChanged(
+            auth,
+            async (user) => {
+
+                if (!user) {
+
+                    window.location.href =
+                        "account.html";
+
+                    return;
+                }
+
+
+                // Extra client-side check.
+                // Firestore Rules are the real security layer.
+
+                if (user.uid !== ADMIN_UID) {
+
+                    adminUser.textContent =
+                        "Access denied.";
+
+                    showMessage(
+                        "You are not authorized to access the admin dashboard."
+                    );
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            "account.html";
+
+                    }, 2000);
+
+                    return;
+                }
+
+
+                adminUser.textContent =
+                    "Logged in as " + user.email;
+
+
+                await loadOrders();
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
