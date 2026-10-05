@@ -27,12 +27,43 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 
+/* =========================================
+   FIREBASE AUTH STATE
+========================================= */
+
 onAuthStateChanged(auth, (user) => {
 
     if (user) {
-        console.log("Cart: logged in as", user.email);
+
+        console.log(
+            "Cart: logged in as",
+            user.email
+        );
+
     } else {
-        console.log("Cart: not logged in");
+
+        console.log(
+            "Cart: not logged in"
+        );
+
     }
 
 });
+
+
+/* =========================================
+   GET FIREBASE ID TOKEN
+   Used by script.js checkout
+========================================= */
+
+window.getFirebaseIdToken = async function () {
+
+    const user = auth.currentUser;
+
+    if (!user) {
+        return null;
+    }
+
+    return await user.getIdToken();
+
+};

@@ -42,52 +42,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let activeFilter = "all";
 
-function filterCards() {
+    function filterCards() {
 
-    const searchTerm =
-        searchInput.value.toLowerCase().trim();
+        const searchTerm =
+            searchInput.value.toLowerCase().trim();
 
-    cards.forEach(function (card) {
+        cards.forEach(function (card) {
 
-        const number =
-            (card.dataset.number || "").toLowerCase();
+            const number =
+                (card.dataset.number || "").toLowerCase();
 
-        const name =
-            (card.dataset.name || "").toLowerCase();
+            const name =
+                (card.dataset.name || "").toLowerCase();
 
-        const type =
-            (card.dataset.type || "").toLowerCase();
+            const type =
+                (card.dataset.type || "").toLowerCase();
 
-        const matchesSearch =
-            number.includes(searchTerm) ||
-            name.includes(searchTerm);
+            const matchesSearch =
+                number.includes(searchTerm) ||
+                name.includes(searchTerm);
 
-        let matchesFilter = true;
+            let matchesFilter = true;
 
-        if (activeFilter !== "all") {
+            if (activeFilter !== "all") {
 
-            if (activeFilter === "shiny") {
+                if (activeFilter === "shiny") {
 
-                matchesFilter =
-                    number.includes("s");
+                    matchesFilter =
+                        number.includes("s");
 
-            } else {
+                } else {
 
-                matchesFilter =
-                    type === activeFilter;
+                    matchesFilter =
+                        type === activeFilter;
+
+                }
 
             }
 
-        }
+            if (matchesSearch && matchesFilter) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
 
-        if (matchesSearch && matchesFilter) {
-            card.style.display = "";
-        } else {
-            card.style.display = "none";
-        }
-
-    });
-}
+        });
+    }
 
 
     searchInput.addEventListener("input", function () {
@@ -902,385 +902,430 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-/* =========================================
-   STRIPE CHECKOUT
-========================================= */
+    /* =========================================
+       STRIPE CHECKOUT
+    ========================================= */
 
-const checkoutButton =
-    document.getElementById("checkoutButton");
+    const checkoutButton =
+        document.getElementById("checkoutButton");
 
-const shippingCountry =
-    document.getElementById("shippingCountry");
+    const shippingCountry =
+        document.getElementById("shippingCountry");
 
-const shippingPricePreview =
-    document.getElementById("shippingPricePreview");
+    const shippingPricePreview =
+        document.getElementById("shippingPricePreview");
 
-const cartShipping =
-    document.getElementById("cartShipping");
-
-
-/* =========================================
-   SHIPPING PRICES
-========================================= */
-
-const EU_COUNTRIES = [
-    "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR",
-    "DE","GR","HU","IE","IT","LV","LT","LU","MT","NL",
-    "PL","PT","RO","SK","SI","ES","SE"
-];
-
-const SHIPPING_PRICES = {
-
-    BE: 9.99,
-    EU: 29.99,
-    US: 54.99,
-    WORLD: 74.99
-
-};
+    const cartShipping =
+        document.getElementById("cartShipping");
 
 
-/* =========================================
-   GET SHIPPING PRICE
-========================================= */
+    /* =========================================
+       SHIPPING PRICES
+    ========================================= */
 
-function getShippingPrice(country) {
+    const EU_COUNTRIES = [
+        "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR",
+        "DE","GR","HU","IE","IT","LV","LT","LU","MT","NL",
+        "PL","PT","RO","SK","SI","ES","SE"
+    ];
 
-    if (!country) {
-        return null;
+    const SHIPPING_PRICES = {
+
+        BE: 9.99,
+        EU: 29.99,
+        US: 54.99,
+        WORLD: 74.99
+
+    };
+
+
+    /* =========================================
+       GET SHIPPING PRICE
+    ========================================= */
+
+    function getShippingPrice(country) {
+
+        if (!country) {
+            return null;
+        }
+
+        if (country === "BE") {
+            return SHIPPING_PRICES.BE;
+        }
+
+        if (EU_COUNTRIES.includes(country)) {
+            return SHIPPING_PRICES.EU;
+        }
+
+        if (country === "US") {
+            return SHIPPING_PRICES.US;
+        }
+
+        return SHIPPING_PRICES.WORLD;
+
     }
 
-    if (country === "BE") {
-        return SHIPPING_PRICES.BE;
-    }
 
-    if (EU_COUNTRIES.includes(country)) {
-        return SHIPPING_PRICES.EU;
-    }
+    /* =========================================
+       UPDATE SHIPPING DISPLAY
+    ========================================= */
 
-    if (country === "US") {
-        return SHIPPING_PRICES.US;
-    }
+    function updateShippingDisplay() {
 
-    return SHIPPING_PRICES.WORLD;
+        if (!shippingCountry) {
+            return;
+        }
 
-}
+        const country =
+            shippingCountry.value;
 
-
-/* =========================================
-   UPDATE SHIPPING DISPLAY
-========================================= */
-
-function updateShippingDisplay() {
-
-    if (!shippingCountry) {
-        return;
-    }
-
-    const country =
-        shippingCountry.value;
-
-    const shippingPrice =
-        getShippingPrice(country);
+        const shippingPrice =
+            getShippingPrice(country);
 
 
-    if (shippingPrice === null) {
+        if (shippingPrice === null) {
+
+            if (cartShipping) {
+                cartShipping.textContent = "—";
+            }
+
+            if (shippingPricePreview) {
+                shippingPricePreview.style.display = "none";
+                shippingPricePreview.textContent = "";
+            }
+
+            updateCartTotalWithShipping(null);
+
+            return;
+
+        }
+
+
+        const formattedPrice =
+            formatPrice(shippingPrice);
+
 
         if (cartShipping) {
-            cartShipping.textContent = "—";
+            cartShipping.textContent =
+                formattedPrice;
         }
+
 
         if (shippingPricePreview) {
-            shippingPricePreview.style.display = "none";
-            shippingPricePreview.textContent = "";
+
+            shippingPricePreview.style.display =
+                "block";
+
+            shippingPricePreview.textContent =
+                "Shipping: " + formattedPrice;
+
         }
 
-        updateCartTotalWithShipping(null);
 
-        return;
-    }
-
-
-    const formattedPrice =
-        formatPrice(shippingPrice);
-
-
-    if (cartShipping) {
-        cartShipping.textContent =
-            formattedPrice;
-    }
-
-
-    if (shippingPricePreview) {
-
-        shippingPricePreview.style.display =
-            "block";
-
-        shippingPricePreview.textContent =
-            "Shipping: " + formattedPrice;
+        updateCartTotalWithShipping(
+            shippingPrice
+        );
 
     }
 
 
-    updateCartTotalWithShipping(
+    /* =========================================
+       UPDATE TOTAL INCLUDING SHIPPING
+    ========================================= */
+
+    function updateCartTotalWithShipping(
         shippingPrice
-    );
+    ) {
 
-}
+        const cartTotal =
+            document.getElementById(
+                "cartTotal"
+            );
+
+        if (!cartTotal) {
+            return;
+        }
 
 
-/* =========================================
-   UPDATE TOTAL INCLUDING SHIPPING
-========================================= */
+        const cart = getCart();
 
-function updateCartTotalWithShipping(
-    shippingPrice
-) {
 
-    const cartTotal =
-        document.getElementById(
-            "cartTotal"
-        );
+        const subtotal =
+            cart.reduce(
+                function (total, item) {
 
-    if (!cartTotal) {
-        return;
+                    return total +
+                        (
+                            Number(item.price) *
+                            Number(item.quantity)
+                        );
+
+                },
+                0
+            );
+
+
+        const shipping =
+            Number(shippingPrice || 0);
+
+
+        const total =
+            subtotal + shipping;
+
+
+        cartTotal.textContent =
+            formatPrice(total);
+
     }
 
 
-    const cart = getCart();
+    /* =========================================
+       COUNTRY CHANGE
+    ========================================= */
 
+    if (shippingCountry) {
 
-    const subtotal =
-        cart.reduce(
-            function (total, item) {
+        shippingCountry.addEventListener(
+            "change",
+            function () {
 
-                return total +
-                    (
-                        Number(item.price) *
-                        Number(item.quantity)
-                    );
+                updateShippingDisplay();
 
-            },
-            0
+            }
         );
 
-
-    const shipping =
-        Number(shippingPrice || 0);
+    }
 
 
-    const total =
-        subtotal + shipping;
+    /* =========================================
+       STRIPE CHECKOUT
+    ========================================= */
 
+    if (checkoutButton) {
 
-    cartTotal.textContent =
-        formatPrice(total);
+        checkoutButton.addEventListener(
+            "click",
+            async function () {
 
-}
+                const cart = getCart();
 
-
-/* =========================================
-   COUNTRY CHANGE
-========================================= */
-
-if (shippingCountry) {
-
-    shippingCountry.addEventListener(
-        "change",
-        function () {
-
-            updateShippingDisplay();
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   STRIPE CHECKOUT
-========================================= */
-
-if (checkoutButton) {
-
-    checkoutButton.addEventListener(
-        "click",
-        async function () {
-
-            const cart = getCart();
-
-
-            /* -----------------------------------------
-               CART EMPTY
-            ----------------------------------------- */
-
-            if (cart.length === 0) {
-
-                alert(
-                    "Your cart is empty."
-                );
-
-                return;
-
-            }
-
-
-            /* -----------------------------------------
-               SHIPPING COUNTRY REQUIRED
-            ----------------------------------------- */
-
-            if (
-                !shippingCountry ||
-                !shippingCountry.value
-            ) {
-
-                alert(
-                    "Please select your shipping country before checkout."
-                );
-
-                if (shippingCountry) {
-                    shippingCountry.focus();
-                }
-
-                return;
-
-            }
-
-
-            const selectedCountry =
-                shippingCountry.value;
-
-
-            const shippingPrice =
-                getShippingPrice(
-                    selectedCountry
-                );
-
-
-            if (shippingPrice === null) {
-
-                alert(
-                    "Shipping to this country is currently unavailable."
-                );
-
-                return;
-
-            }
-
-
-            /* -----------------------------------------
-               BUTTON
-            ----------------------------------------- */
-
-            checkoutButton.disabled =
-                true;
-
-            checkoutButton.textContent =
-                "PROCESSING...";
-
-
-            try {
 
                 /* -----------------------------------------
-                   SEND CART + COUNTRY TO WORKER
+                   CART EMPTY
                 ----------------------------------------- */
 
-                const response =
-                    await fetch(
-                        "https://angels-and-demons-checkout.dewitrik8.workers.dev/",
-                        {
-                            method: "POST",
+                if (cart.length === 0) {
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body: JSON.stringify({
-
-                                items:
-                                    cart.map(
-                                        function (item) {
-
-                                            return {
-                                                id:
-                                                    item.id,
-
-                                                name:
-                                                    item.name,
-
-                                                price:
-                                                    item.price,
-
-                                                quantity:
-                                                    item.quantity
-                                            };
-
-                                        }
-                                    ),
-
-                                shippingCountry:
-                                    selectedCountry
-
-                            })
-                        }
+                    alert(
+                        "Your cart is empty."
                     );
 
+                    return;
 
-                const data =
-                    await response.json();
+                }
 
 
                 /* -----------------------------------------
-                   WORKER ERROR
+                   SHIPPING COUNTRY REQUIRED
                 ----------------------------------------- */
 
                 if (
-                    !response.ok ||
-                    !data.url
+                    !shippingCountry ||
+                    !shippingCountry.value
                 ) {
 
-                    throw new Error(
-                        data.error ||
-                        "Checkout could not be created."
+                    alert(
+                        "Please select your shipping country before checkout."
                     );
+
+                    if (shippingCountry) {
+                        shippingCountry.focus();
+                    }
+
+                    return;
+
+                }
+
+
+                const selectedCountry =
+                    shippingCountry.value;
+
+
+                const shippingPrice =
+                    getShippingPrice(
+                        selectedCountry
+                    );
+
+
+                if (shippingPrice === null) {
+
+                    alert(
+                        "Shipping to this country is currently unavailable."
+                    );
+
+                    return;
 
                 }
 
 
                 /* -----------------------------------------
-                   GO TO STRIPE
+                   REQUIRE FIREBASE LOGIN
                 ----------------------------------------- */
 
-                window.location.href =
-                    data.url;
+                if (
+                    typeof window.getFirebaseIdToken !==
+                    "function"
+                ) {
+
+                    alert(
+                        "Authentication is not ready. Please refresh the page and try again."
+                    );
+
+                    return;
+
+                }
 
 
-            } catch (error) {
-
-                console.error(
-                    "Checkout error:",
-                    error
-                );
+                const firebaseToken =
+                    await window.getFirebaseIdToken();
 
 
-                alert(
-                    error.message ||
-                    "Checkout could not be started. Please try again."
-                );
+                if (!firebaseToken) {
 
+                    alert(
+                        "You must be logged in to place an order."
+                    );
+
+                    window.location.href =
+                        "account.html";
+
+                    return;
+
+                }
+
+
+                /* -----------------------------------------
+                   BUTTON
+                ----------------------------------------- */
 
                 checkoutButton.disabled =
-                    false;
+                    true;
 
                 checkoutButton.textContent =
-                    "CHECKOUT";
+                    "PROCESSING...";
+
+
+                try {
+
+                    /* -----------------------------------------
+                       SEND CART + COUNTRY + FIREBASE TOKEN
+                       TO CLOUDFLARE WORKER
+                    ----------------------------------------- */
+
+                    const response =
+                        await fetch(
+                            "https://angels-and-demons-checkout.dewitrik8.workers.dev/",
+                            {
+                                method: "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "Authorization":
+                                        "Bearer " +
+                                        firebaseToken
+
+                                },
+
+                                body: JSON.stringify({
+
+                                    items:
+                                        cart.map(
+                                            function (item) {
+
+                                                return {
+                                                    id:
+                                                        item.id,
+
+                                                    name:
+                                                        item.name,
+
+                                                    price:
+                                                        item.price,
+
+                                                    quantity:
+                                                        item.quantity
+                                                };
+
+                                            }
+                                        ),
+
+                                    shippingCountry:
+                                        selectedCountry
+
+                                })
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    /* -----------------------------------------
+                       WORKER ERROR
+                    ----------------------------------------- */
+
+                    if (
+                        !response.ok ||
+                        !data.url
+                    ) {
+
+                        throw new Error(
+                            data.error ||
+                            "Checkout could not be created."
+                        );
+
+                    }
+
+
+                    /* -----------------------------------------
+                       GO TO STRIPE
+                    ----------------------------------------- */
+
+                    window.location.href =
+                        data.url;
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Checkout error:",
+                        error
+                    );
+
+
+                    alert(
+                        error.message ||
+                        "Checkout could not be started. Please try again."
+                    );
+
+
+                    checkoutButton.disabled =
+                        false;
+
+                    checkoutButton.textContent =
+                        "CHECKOUT";
+
+                }
 
             }
+        );
 
-        }
-    );
+    }
 
-}
 
     /* =========================================
        INITIALIZE
