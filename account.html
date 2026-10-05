@@ -585,22 +585,28 @@
                     "order-item";
 
 
-                let orderDate =
-                    "Date unavailable";
+               let orderDate = "Date unavailable";
 
+if (order.createdAt) {
+    try {
+        let date;
 
-                if (
-                    order.createdAt &&
-                    typeof order.createdAt.toDate === "function"
-                ) {
+        if (typeof order.createdAt.toDate === "function") {
+            date = order.createdAt.toDate();
+        } else {
+            date = new Date(order.createdAt);
+        }
 
-                    orderDate =
-                        order.createdAt
-                            .toDate()
-                            .toLocaleDateString(
-                                "en-GB"
-                            );
-                }
+        if (!Number.isNaN(date.getTime())) {
+            orderDate = date.toLocaleString("en-GB", {
+                dateStyle: "medium",
+                timeStyle: "short"
+            });
+        }
+    } catch (error) {
+        console.error("Invalid order date:", error);
+    }
+}
 
 
                 let itemsHTML =
@@ -636,10 +642,15 @@
 
                     <div class="order-status">
 
-                        Status:
-                        ${order.status || "Paid"}
+    Payment:
+    ${order.paymentStatus || "unknown"}
 
-                    </div>
+    <br>
+
+    Order:
+    ${order.orderStatus || "processing"}
+
+</div>
 
                     <div class="order-items">
 

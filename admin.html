@@ -541,20 +541,35 @@
 
 
                 // Sort newest first.
-                orders.sort((a, b) => {
+ orders.sort((a, b) => {
 
-                    const aTime =
-                        a.createdAt?.toMillis
-                            ? a.createdAt.toMillis()
-                            : 0;
+    const getTime = (value) => {
 
-                    const bTime =
-                        b.createdAt?.toMillis
-                            ? b.createdAt.toMillis()
-                            : 0;
+        if (!value) {
+            return 0;
+        }
 
-                    return bTime - aTime;
-                });
+        if (value.toMillis) {
+            return value.toMillis();
+        }
+
+        if (value.toDate) {
+            return value.toDate().getTime();
+        }
+
+        const time =
+            new Date(value).getTime();
+
+        return Number.isNaN(time)
+            ? 0
+            : time;
+    };
+
+    return (
+        getTime(b.createdAt) -
+        getTime(a.createdAt)
+    );
+});
 
 
                 ordersForExport = orders;
