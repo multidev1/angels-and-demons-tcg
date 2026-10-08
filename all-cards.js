@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         {
             file: "set1.html",
             title: "SET 1 — ANGELS & DEMONS"
-        }	
+        }
         {
             file: "set2.html",
             title: "SET 2 — THE DRAGON AWAKENING"
@@ -45,11 +45,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentCardIndex = -1;
 
     /* =========================================
-       NAVIGATION POSITION
-       2 CM FROM IMAGE
+       2 CM SPACING
     ========================================= */
 
-    const navigationGap = 75.6;
+    const navigationGap = 2 * 96 / 2.54;
 
     function positionNavigation() {
 
@@ -70,98 +69,45 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        /*
-         * BACK
-         * 2 cm LEFT of image
-         */
+        const imageCenterY =
+            imageRect.top +
+            (imageRect.height / 2);
 
-        const backLeft =
-            imageRect.left -
-            lightboxRect.left -
-            previousButton.offsetWidth -
-            navigationGap;
-
-        const backTop =
-            imageRect.top -
-            lightboxRect.top +
-            (imageRect.height / 2) -
+        const buttonTop =
+            imageCenterY -
             (previousButton.offsetHeight / 2);
 
-        previousButton.style.setProperty(
-            "position",
-            "absolute",
-            "important"
-        );
+        /* BACK = 2 cm LEFT of image */
 
-        previousButton.style.setProperty(
-            "left",
-            backLeft + "px",
-            "important"
-        );
+        previousButton.style.left =
+            (
+                imageRect.left -
+                lightboxRect.left -
+                previousButton.offsetWidth -
+                navigationGap
+            ) + "px";
 
-        previousButton.style.setProperty(
-            "right",
-            "auto",
-            "important"
-        );
+        previousButton.style.top =
+            (
+                buttonTop -
+                lightboxRect.top
+            ) + "px";
 
-        previousButton.style.setProperty(
-            "top",
-            backTop + "px",
-            "important"
-        );
+        /* NEXT = 2 cm RIGHT of image */
 
-        previousButton.style.setProperty(
-            "transform",
-            "none",
-            "important"
-        );
+        nextButton.style.left =
+            (
+                imageRect.right -
+                lightboxRect.left +
+                navigationGap
+            ) + "px";
 
-        /*
-         * NEXT
-         * 2 cm RIGHT of image
-         */
-
-        const nextLeft =
-            imageRect.right -
-            lightboxRect.left +
-            navigationGap;
-
-        const nextTop =
-            imageRect.top -
-            lightboxRect.top +
-            (imageRect.height / 2) -
-            (nextButton.offsetHeight / 2);
-
-        nextButton.style.setProperty(
-            "position",
-            "absolute",
-            "important"
-        );
-
-        nextButton.style.setProperty(
-            "left",
-            nextLeft + "px",
-            "important"
-        );
-
-        nextButton.style.setProperty(
-            "right",
-            "auto",
-            "important"
-        );
-
-        nextButton.style.setProperty(
-            "top",
-            nextTop + "px",
-            "important"
-        );
-
-        nextButton.style.setProperty(
-            "transform",
-            "none",
-            "important"
-        );
+        nextButton.style.top =
+            (
+                imageCenterY -
+                lightboxRect.top -
+                (nextButton.offsetHeight / 2)
+            ) + "px";
     }
 
     /* =========================================
@@ -179,9 +125,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         currentCardIndex = index;
 
-        const card = allCards[index];
+        const card =
+            allCards[currentCardIndex];
 
-        lightboxImage.src = card.image;
+        lightboxImage.src =
+            card.image;
 
         lightboxImage.alt =
             card.number +
@@ -200,30 +148,29 @@ document.addEventListener("DOMContentLoaded", function () {
         updateNavigation();
 
         /*
-         * Position after image has been rendered.
+         * Wait until the image has its real
+         * displayed dimensions.
          */
 
         if (lightboxImage.complete) {
 
             requestAnimationFrame(function () {
-
-                positionNavigation();
-
+                requestAnimationFrame(function () {
+                    positionNavigation();
+                });
             });
 
         } else {
 
             lightboxImage.onload =
                 function () {
-
                     positionNavigation();
-
                 };
         }
     }
 
     /* =========================================
-       PREVIOUS
+       PREVIOUS / NEXT
     ========================================= */
 
     function previousCard() {
@@ -235,10 +182,6 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
     }
-
-    /* =========================================
-       NEXT
-    ========================================= */
 
     function nextCard() {
 
@@ -252,10 +195,6 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
     }
-
-    /* =========================================
-       BUTTON STATE
-    ========================================= */
 
     function updateNavigation() {
 
@@ -288,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     /* =========================================
-       CLOSE
+       CLOSE LIGHTBOX
     ========================================= */
 
     function closeCard() {
@@ -302,6 +241,12 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.style.overflow = "";
 
         currentCardIndex = -1;
+
+        previousButton.style.left = "";
+        previousButton.style.top = "";
+
+        nextButton.style.left = "";
+        nextButton.style.top = "";
     }
 
     lightboxClose.addEventListener(
@@ -318,15 +263,16 @@ document.addEventListener("DOMContentLoaded", function () {
         "click",
         function (event) {
 
-            if (event.target === lightbox) {
-
+            if (
+                event.target === lightbox
+            ) {
                 closeCard();
             }
         }
     );
 
     /* =========================================
-       KEYBOARD
+       KEYBOARD CONTROLS
     ========================================= */
 
     document.addEventListener(
@@ -365,15 +311,19 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     /* =========================================
-       LOAD SET FROM ACTUAL HTML FILE
+       LOAD SET
+       READS THE ACTUAL HTML FILE
     ========================================= */
 
     async function loadSet(set) {
 
         const response =
-            await fetch(set.file, {
-                cache: "default"
-            });
+            await fetch(
+                set.file,
+                {
+                    cache: "default"
+                }
+            );
 
         if (!response.ok) {
 
@@ -410,41 +360,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const setCards = [];
 
-        cards.forEach(function (card) {
+        cards.forEach(
+            function (card) {
 
-            const number =
-                card.dataset.number || "";
+                const number =
+                    card.dataset.number ||
+                    "";
 
-            const name =
-                card.dataset.name ||
-                "Unknown Card";
+                const name =
+                    card.dataset.name ||
+                    "Unknown Card";
 
-            const image =
-                card.querySelector("img");
+                const image =
+                    card.querySelector("img");
 
-            if (!image) {
-                return;
+                if (!image) {
+                    return;
+                }
+
+                const imagePath =
+                    image.getAttribute("src");
+
+                setCards.push({
+
+                    number: number,
+
+                    name: name,
+
+                    image: imagePath,
+
+                    set: set.title
+
+                });
             }
-
-            const imagePath =
-                image.getAttribute("src");
-
-            setCards.push({
-
-                number: number,
-
-                name: name,
-
-                image: imagePath,
-
-                set: set.title
-
-            });
-        });
+        );
 
         return {
+
             set: set,
+
             cards: setCards
+
         };
     }
 
@@ -479,58 +435,63 @@ document.addEventListener("DOMContentLoaded", function () {
         list.className =
             "all-cards-list";
 
-        setData.cards.forEach(function (card) {
+        setData.cards.forEach(
+            function (card) {
 
-            const cardIndex =
-                allCards.length;
+                const cardIndex =
+                    allCards.length;
 
-            allCards.push(card);
+                allCards.push(card);
 
-            const row =
-                document.createElement("div");
+                const row =
+                    document.createElement("div");
 
-            row.className =
-                "all-card-row";
+                row.className =
+                    "all-card-row";
 
-            const numberElement =
-                document.createElement("span");
+                const numberElement =
+                    document.createElement("span");
 
-            numberElement.className =
-                "all-card-number";
+                numberElement.className =
+                    "all-card-number";
 
-            numberElement.textContent =
-                card.number;
+                numberElement.textContent =
+                    card.number;
 
-            const nameElement =
-                document.createElement("span");
+                const nameElement =
+                    document.createElement("span");
 
-            nameElement.className =
-                "all-card-name";
+                nameElement.className =
+                    "all-card-name";
 
-            nameElement.textContent =
-                card.name;
+                nameElement.textContent =
+                    card.name;
 
-            row.appendChild(
-                numberElement
-            );
+                row.appendChild(
+                    numberElement
+                );
 
-            row.appendChild(
-                nameElement
-            );
+                row.appendChild(
+                    nameElement
+                );
 
-            row.addEventListener(
-                "click",
-                function () {
+                row.addEventListener(
+                    "click",
+                    function () {
 
-                    openCard(cardIndex);
+                        openCard(
+                            cardIndex
+                        );
+                    }
+                );
 
-                }
-            );
+                list.appendChild(row);
+            }
+        );
 
-            list.appendChild(row);
-        });
-
-        setSection.appendChild(list);
+        setSection.appendChild(
+            list
+        );
 
         container.appendChild(
             setSection
@@ -547,20 +508,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
 
+            /*
+             * SET 1 + SET 2 load simultaneously.
+             */
+
             const results =
                 await Promise.all(
-                    sets.map(function (set) {
+                    sets.map(
+                        function (set) {
 
-                        return loadSet(set);
-
-                    })
+                            return loadSet(set);
+                        }
+                    )
                 );
 
-            results.forEach(function (result) {
+            results.forEach(
+                function (result) {
 
-                renderSet(result);
-
-            });
+                    renderSet(result);
+                }
+            );
 
             updateNavigation();
 
@@ -584,7 +551,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =========================================
-       RECALCULATE ON WINDOW RESIZE
+       KEEP BUTTONS CORRECT ON RESIZE
     ========================================= */
 
     window.addEventListener(
@@ -592,7 +559,6 @@ document.addEventListener("DOMContentLoaded", function () {
         function () {
 
             positionNavigation();
-
         }
     );
 
