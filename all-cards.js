@@ -10,7 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
         {
             file: "set2.html",
             title: "SET 2 — THE DRAGON AWAKENING"
-        }
+        },
+    {
+        file: "set THE NEXT CHAPTER.html",
+        title: "THE NEXT CHAPTER"
+    }
     ];
 
     const lightbox = document.getElementById("allCardLightbox");
