@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Angels & Demons TCG | All Cards</title>
+
+    <meta property="og:title" content="Angels & Demons TCG | All Cards">
+    <meta property="og:description" content="Explore all Angels & Demons TCG cards from every set.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="logo.png">
+
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+
+    <style>
+
+        /* =========================================
+           ALL CARDS PAGE
+        ========================================= */
+
+        .all-cards-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .all-cards-page h1 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .all-cards-intro {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .all-cards-set {
+            margin-bottom: 55px;
+        }
+
+        .all-cards-set-title {
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            color: #d4af37;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .all-cards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .all-card-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            min-height: 48px;
+            padding: 8px 14px;
+            box-sizing: border-box;
+
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.18);
+            border-radius: 5px;
+
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .all-card-row:hover {
+            background: rgba(212, 175, 55, 0.10);
+            border-color: #d4af37;
+            transform: translateX(4px);
+        }
+
+        .all-card-number {
+            width: 100px;
+            flex-shrink: 0;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .all-card-name {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .all-card-loading,
+        .all-card-error,
+        .all-card-coming-soon {
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 6px;
+            color: #aaa;
+        }
+
+        .all-card-error {
+            color: #ff7777;
+        }
+
+        /* =========================================
+           CARD LIGHTBOX
+        ========================================= */
+
+        .all-card-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            background: rgba(0, 0, 0, 0.92);
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .all-card-lightbox.active {
+            display: flex;
+        }
+
+        .all-card-lightbox-image {
+            max-width: min(90vw, 700px);
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+
+            object-fit: contain;
+
+            border-radius: 8px;
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
+        }
+
+        .all-card-lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+
+            border: none;
+            background: transparent;
+
+            color: white;
+            font-size: 42px;
+            line-height: 1;
+
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        .all-card-lightbox-close:hover {
+            color: #d4af37;
+        }
+
+        .all-card-lightbox-title {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            color: white;
+            background: rgba(0, 0, 0, 0.75);
+
+            padding: 8px 16px;
+            border-radius: 5px;
+
+            font-size: 14px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+
+            .all-cards-page {
+                padding: 30px 12px 60px;
+            }
+
+            .all-cards-set-title {
+                font-size: 1.15rem;
+            }
+
+            .all-card-row {
+                min-height: 44px;
+                padding: 7px 10px;
+            }
+
+            .all-card-number {
+                width: 75px;
+                font-size: 0.9rem;
+            }
+
+            .all-card-name {
+                font-size: 0.9rem;
+            }
+
+            .all-card-lightbox {
+                padding: 15px;
+            }
+
+            .all-card-lightbox-image {
+                max-width: 95vw;
+                max-height: 85vh;
+            }
+
+            .all-card-lightbox-close {
+                top: 10px;
+                right: 15px;
+                font-size: 36px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- NEON BACKGROUND -->
+    <div class="neon-background">
+        <span class="neon-dot dot-1"></span>
+        <span class="neon-dot dot-2"></span>
+        <span class="neon-dot dot-3"></span>
+        <span class="neon-dot dot-4"></span>
+
+        <span class="neon-dot dot-5"></span>
+        <span class="neon-dot dot-6"></span>
+        <span class="neon-dot dot-7"></span>
+        <span class="neon-dot dot-8"></span>
+
+        <span class="neon-bar bar-1"></span>
+        <span class="neon-bar bar-2"></span>
+        <span class="neon-bar bar-3"></span>
+        <span class="neon-bar bar-4"></span>
+
+        <span class="neon-bar bar-5"></span>
+        <span class="neon-bar bar-6"></span>
+        <span class="neon-bar bar-7"></span>
+        <span class="neon-bar bar-8"></span>
+    </div>
+
+
+    <!-- HEADER -->
+    <header>
+
+        <img src="logo.png" alt="Angels & Demons TCG">
+
+        <nav class="main-nav">
+
+            <a href="index.html">Home</a>
+            <a href="cards.html">Cards</a>
+            <a href="rules.html">TCG Rules</a>
+            <a href="howtoplay.html">How To Play</a>
+            <a href="shop.html">Shop</a>
+            <a href="faq.html">FAQ</a>
+            <a href="account.html">Account</a>
+
+            <a href="cart.html" class="cart-nav">
+                🛒 Cart <span id="headerCartCount">0</span>
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ALL CARDS -->
+    <main>
+
+        <section class="all-cards-page">
+
+            <h1>ALL CARDS</h1>
+
+            <p class="all-cards-intro">
+                Explore every card from the Angels & Demons TCG.
+                Select a card name to view the card in full size.
+            </p>
+
+
+            <div id="allCardsContainer">
+
+                <div class="all-card-loading">
+                    Loading cards...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- CARD LIGHTBOX -->
+    <div id="allCardLightbox" class="all-card-lightbox">
+
+        <button
+            id="allCardLightboxClose"
+            class="all-card-lightbox-close"
+            aria-label="Close">
+            &times;
+        </button>
+
+        <img
+            id="allCardLightboxImage"
+            class="all-card-lightbox-image"
+            src=""
+            alt=""
+        >
+
+        <div
+            id="allCardLightboxTitle"
+            class="all-card-lightbox-title">
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-content">
+
+            <div class="footer-section">
+
+                <h3>Angels & Demons TCG</h3>
+
+                <p>
+                    Enter the world of Angels & Demons TCG.
+                    Collect, build, battle, and become the strongest.
+                </p>
+
+            </div>
+
+
+            <div class="footer-section">
+
+                <h3>Quick Links</h3>
+
+                <a href="index.html">Home</a>
+                <a href="cards.html">Cards</a>
+                <a href="rules.html">TCG Rules</a>
+                <a href="howtoplay.html">How To Play</a>
+                <a href="shop.html">Shop</a>
+
+            </div>
+
+
+            <div class="footer-section">
+
+                <h3>Connect</h3>
+
+                <a href="#">Contact</a>
+                <a href="#">Official Links</a>
+                <a href="#">Social Media</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>© 2026 Angels & Demons TCG</p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+    <script src="image-protection.js"></script>
+
+    <script src="all-cards.js"></script>
+
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MMG1DT3N61"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-MMG1DT3N61');
+    </script>
+
+</body>
+
+</html>
