@@ -4,11 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const sets = [
 	   {
-            file: null,
-            title: "SET 3 — CALL OF THE WILD",
-            comingSoon: true
-        }
-	   {
             file: "set2.html",
             title: "SET 2 — THE DRAGON AWAKENING"
         },
