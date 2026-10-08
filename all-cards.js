@@ -3,19 +3,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById("allCardsContainer");
 
     const sets = [
-        {
-            file: "set1.html",
-            title: "SET 1 — ANGELS & DEMONS"
-        },
-        {
-            file: "set2.html",
-            title: "SET 2 — THE DRAGON AWAKENING"
-        },
-        {
+	   {
             file: null,
             title: "SET 3 — CALL OF THE WILD",
             comingSoon: true
         }
+	   {
+            file: "set2.html",
+            title: "SET 2 — THE DRAGON AWAKENING"
+        },
+        {
+            file: "set1.html",
+            title: "SET 1 — ANGELS & DEMONS"
+        },
     ];
 
     const lightbox = document.getElementById("allCardLightbox");
