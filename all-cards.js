@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         {
             file: "set1.html",
             title: "SET 1 — ANGELS & DEMONS"
-        }
+        },
         {
             file: "set2.html",
             title: "SET 2 — THE DRAGON AWAKENING"
