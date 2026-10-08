@@ -536,6 +536,85 @@ document.addEventListener("DOMContentLoaded", function () {
             setSection
         );
     }
+	
+	    /* =========================================
+       MOBILE SWIPE NAVIGATION
+    ========================================= */
+
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+
+    lightboxImage.addEventListener(
+        "touchstart",
+        function (event) {
+
+            if (event.touches.length !== 1) {
+                return;
+            }
+
+            swipeStartX =
+                event.touches[0].clientX;
+
+            swipeStartY =
+                event.touches[0].clientY;
+        },
+        { passive: true }
+    );
+
+    lightboxImage.addEventListener(
+        "touchend",
+        function (event) {
+
+            if (event.changedTouches.length !== 1) {
+                return;
+            }
+
+            const swipeEndX =
+                event.changedTouches[0].clientX;
+
+            const swipeEndY =
+                event.changedTouches[0].clientY;
+
+            const differenceX =
+                swipeEndX - swipeStartX;
+
+            const differenceY =
+                swipeEndY - swipeStartY;
+
+            /*
+             * Alleen horizontale swipes.
+             * Zo blijft normaal verticaal scrollen werken.
+             */
+
+            if (
+                Math.abs(differenceX) < 50 ||
+                Math.abs(differenceX) <= Math.abs(differenceY)
+            ) {
+                return;
+            }
+
+            /*
+             * Swipe naar LINKS = volgende kaart
+             */
+
+            if (differenceX < 0) {
+
+                nextCard();
+
+            }
+
+            /*
+             * Swipe naar RECHTS = vorige kaart
+             */
+
+            if (differenceX > 0) {
+
+                previousCard();
+
+            }
+        },
+        { passive: true }
+    );
 
     /* =========================================
        LOAD EVERYTHING
