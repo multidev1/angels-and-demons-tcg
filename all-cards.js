@@ -3,15 +3,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById("allCardsContainer");
 
     const sets = [
-       {
+        {
             file: "set2.html",
             title: "SET 2 — THE DRAGON AWAKENING"
         },
         {
             file: "set1.html",
             title: "SET 1 — ANGELS & DEMONS"
-        },
-
+        }
     ];
 
     const lightbox = document.getElementById("allCardLightbox");
@@ -19,16 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const lightboxTitle = document.getElementById("allCardLightboxTitle");
     const lightboxClose = document.getElementById("allCardLightboxClose");
 
-    // --------------------------------------------------
-    // Navigation buttons
-    // --------------------------------------------------
+    /* =========================================
+       NAVIGATION BUTTONS
+    ========================================= */
 
     const previousButton = document.createElement("button");
+
     previousButton.type = "button";
     previousButton.className = "all-card-nav all-card-prev";
     previousButton.textContent = "← BACK";
 
     const nextButton = document.createElement("button");
+
     nextButton.type = "button";
     nextButton.className = "all-card-nav all-card-next";
     nextButton.textContent = "NEXT →";
@@ -36,309 +37,503 @@ document.addEventListener("DOMContentLoaded", function () {
     lightbox.appendChild(previousButton);
     lightbox.appendChild(nextButton);
 
-    // All cards currently loaded from Set 1 and Set 2
-    const allCards = [];
+    /* =========================================
+       CARD DATA
+    ========================================= */
 
+    const allCards = [];
     let currentCardIndex = -1;
 
-    // --------------------------------------------------
-    // Open card
-    // --------------------------------------------------
+    /* =========================================
+       2 CM SPACING
+    ========================================= */
+
+    const navigationGap = 2 * 96 / 2.54;
+
+    function positionNavigation() {
+
+        if (!lightbox.classList.contains("active")) {
+            return;
+        }
+
+        const imageRect =
+            lightboxImage.getBoundingClientRect();
+
+        const lightboxRect =
+            lightbox.getBoundingClientRect();
+
+        if (
+            imageRect.width === 0 ||
+            imageRect.height === 0
+        ) {
+            return;
+        }
+
+        const imageCenterY =
+            imageRect.top +
+            (imageRect.height / 2);
+
+        const buttonTop =
+            imageCenterY -
+            (previousButton.offsetHeight / 2);
+
+        /* BACK = 2 cm LEFT of image */
+
+        previousButton.style.left =
+            (
+                imageRect.left -
+                lightboxRect.left -
+                previousButton.offsetWidth -
+                navigationGap
+            ) + "px";
+
+        previousButton.style.top =
+            (
+                buttonTop -
+                lightboxRect.top
+            ) + "px";
+
+        /* NEXT = 2 cm RIGHT of image */
+
+        nextButton.style.left =
+            (
+                imageRect.right -
+                lightboxRect.left +
+                navigationGap
+            ) + "px";
+
+        nextButton.style.top =
+            (
+                imageCenterY -
+                lightboxRect.top -
+                (nextButton.offsetHeight / 2)
+            ) + "px";
+    }
+
+    /* =========================================
+       OPEN CARD
+    ========================================= */
 
     function openCard(index) {
 
-        if (index < 0 || index >= allCards.length) {
+        if (
+            index < 0 ||
+            index >= allCards.length
+        ) {
             return;
         }
 
         currentCardIndex = index;
 
-        const card = allCards[currentCardIndex];
+        const card =
+            allCards[currentCardIndex];
 
-        lightboxImage.src = card.image;
-        lightboxImage.alt = card.number + " — " + card.name;
+        lightboxImage.src =
+            card.image;
+
+        lightboxImage.alt =
+            card.number +
+            " — " +
+            card.name;
 
         lightboxTitle.textContent =
-            card.number + " — " + card.name;
+            card.number +
+            " — " +
+            card.name;
 
         lightbox.classList.add("active");
 
         document.body.style.overflow = "hidden";
 
         updateNavigation();
+
+        /*
+         * Wait until the image has its real
+         * displayed dimensions.
+         */
+
+        if (lightboxImage.complete) {
+
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    positionNavigation();
+                });
+            });
+
+        } else {
+
+            lightboxImage.onload =
+                function () {
+                    positionNavigation();
+                };
+        }
     }
 
-    // --------------------------------------------------
-    // Previous / Next
-    // --------------------------------------------------
+    /* =========================================
+       PREVIOUS / NEXT
+    ========================================= */
 
     function previousCard() {
 
         if (currentCardIndex > 0) {
-            openCard(currentCardIndex - 1);
-        }
 
+            openCard(
+                currentCardIndex - 1
+            );
+        }
     }
 
     function nextCard() {
 
-        if (currentCardIndex < allCards.length - 1) {
-            openCard(currentCardIndex + 1);
+        if (
+            currentCardIndex <
+            allCards.length - 1
+        ) {
+
+            openCard(
+                currentCardIndex + 1
+            );
         }
-
     }
-
-    // --------------------------------------------------
-    // Enable / disable navigation buttons
-    // --------------------------------------------------
 
     function updateNavigation() {
 
-        previousButton.disabled = currentCardIndex <= 0;
-        nextButton.disabled =
-            currentCardIndex >= allCards.length - 1;
+        previousButton.disabled =
+            currentCardIndex <= 0;
 
+        nextButton.disabled =
+            currentCardIndex >=
+            allCards.length - 1;
     }
 
-    previousButton.addEventListener("click", function (event) {
+    previousButton.addEventListener(
+        "click",
+        function (event) {
 
-        event.stopPropagation();
-        previousCard();
+            event.stopPropagation();
 
-    });
+            previousCard();
+        }
+    );
 
-    nextButton.addEventListener("click", function (event) {
+    nextButton.addEventListener(
+        "click",
+        function (event) {
 
-        event.stopPropagation();
-        nextCard();
+            event.stopPropagation();
 
-    });
+            nextCard();
+        }
+    );
 
-    // --------------------------------------------------
-    // Close lightbox
-    // --------------------------------------------------
+    /* =========================================
+       CLOSE LIGHTBOX
+    ========================================= */
 
     function closeCard() {
 
         lightbox.classList.remove("active");
 
         lightboxImage.src = "";
+
         lightboxTitle.textContent = "";
 
         document.body.style.overflow = "";
 
         currentCardIndex = -1;
 
+        previousButton.style.left = "";
+        previousButton.style.top = "";
+
+        nextButton.style.left = "";
+        nextButton.style.top = "";
     }
 
-    lightboxClose.addEventListener("click", function (event) {
+    lightboxClose.addEventListener(
+        "click",
+        function (event) {
 
-        event.stopPropagation();
-        closeCard();
+            event.stopPropagation();
 
-    });
-
-    lightbox.addEventListener("click", function (event) {
-
-        if (event.target === lightbox) {
             closeCard();
         }
+    );
 
-    });
+    lightbox.addEventListener(
+        "click",
+        function (event) {
 
-    // --------------------------------------------------
-    // Keyboard navigation
-    // --------------------------------------------------
-
-    document.addEventListener("keydown", function (event) {
-
-        if (!lightbox.classList.contains("active")) {
-            return;
+            if (
+                event.target === lightbox
+            ) {
+                closeCard();
+            }
         }
+    );
 
-        if (event.key === "Escape") {
-            closeCard();
+    /* =========================================
+       KEYBOARD CONTROLS
+    ========================================= */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                !lightbox.classList.contains(
+                    "active"
+                )
+            ) {
+                return;
+            }
+
+            if (event.key === "Escape") {
+
+                closeCard();
+
+                return;
+            }
+
+            if (event.key === "ArrowLeft") {
+
+                previousCard();
+
+                return;
+            }
+
+            if (event.key === "ArrowRight") {
+
+                nextCard();
+
+                return;
+            }
         }
+    );
 
-        if (event.key === "ArrowLeft") {
-            previousCard();
-        }
+    /* =========================================
+       LOAD SET
+       READS THE ACTUAL HTML FILE
+    ========================================= */
 
-        if (event.key === "ArrowRight") {
-            nextCard();
-        }
+    async function loadSet(set) {
 
-    });
-
-    // --------------------------------------------------
-    // Load Set
-    // --------------------------------------------------
-
-    function loadSet(set) {
-
-        const setSection = document.createElement("section");
-        setSection.className = "all-cards-set";
-
-        const setTitle = document.createElement("h2");
-        setTitle.className = "all-cards-set-title";
-        setTitle.textContent = set.title;
-
-        setSection.appendChild(setTitle);
-
-        // Set 3
-        if (set.comingSoon) {
-
-            const comingSoon = document.createElement("div");
-
-            comingSoon.className = "all-card-coming-soon";
-            comingSoon.textContent = "COMING SOON";
-
-            setSection.appendChild(comingSoon);
-            container.appendChild(setSection);
-
-            return;
-        }
-
-        const iframe = document.createElement("iframe");
-
-        iframe.src = set.file;
-        iframe.style.display = "none";
-        iframe.setAttribute("aria-hidden", "true");
-
-        document.body.appendChild(iframe);
-
-        iframe.onload = function () {
-
-            try {
-
-                const setDocument = iframe.contentDocument;
-
-                if (!setDocument) {
-                    throw new Error(
-                        "Could not access " + set.file
-                    );
+        const response =
+            await fetch(
+                set.file,
+                {
+                    cache: "default"
                 }
+            );
 
-                const cards =
-                    setDocument.querySelectorAll(".card-item");
+        if (!response.ok) {
 
-                if (cards.length === 0) {
+            throw new Error(
+                "Could not load " +
+                set.file
+            );
+        }
 
-                    const error = document.createElement("div");
+        const html =
+            await response.text();
 
-                    error.className = "all-card-error";
-                    error.textContent =
-                        "No cards found in " + set.file;
+        const parser =
+            new DOMParser();
 
-                    setSection.appendChild(error);
-                    container.appendChild(setSection);
+        const setDocument =
+            parser.parseFromString(
+                html,
+                "text/html"
+            );
 
-                    iframe.remove();
+        const cards =
+            setDocument.querySelectorAll(
+                ".card-item"
+            );
 
+        if (cards.length === 0) {
+
+            throw new Error(
+                "No cards found in " +
+                set.file
+            );
+        }
+
+        const setCards = [];
+
+        cards.forEach(
+            function (card) {
+
+                const number =
+                    card.dataset.number ||
+                    "";
+
+                const name =
+                    card.dataset.name ||
+                    "Unknown Card";
+
+                const image =
+                    card.querySelector("img");
+
+                if (!image) {
                     return;
                 }
 
-                const list =
-                    document.createElement("div");
+                const imagePath =
+                    image.getAttribute("src");
 
-                list.className = "all-cards-list";
+                setCards.push({
 
-                cards.forEach(function (card) {
+                    number: number,
 
-                    const number =
-                        card.dataset.number || "";
+                    name: name,
 
-                    const name =
-                        card.dataset.name ||
-                        "Unknown Card";
+                    image: imagePath,
 
-                    const image =
-                        card.querySelector("img");
-
-                    if (!image) {
-                        return;
-                    }
-
-                    const imagePath =
-                        image.getAttribute("src");
-
-                    // Add card to global navigation array
-                    const cardIndex = allCards.length;
-
-                    allCards.push({
-                        number: number,
-                        name: name,
-                        image: imagePath,
-                        set: set.title
-                    });
-
-                    // Create list row
-                    const row =
-                        document.createElement("div");
-
-                    row.className = "all-card-row";
-
-                    const numberElement =
-                        document.createElement("span");
-
-                    numberElement.className =
-                        "all-card-number";
-
-                    numberElement.textContent =
-                        number;
-
-                    const nameElement =
-                        document.createElement("span");
-
-                    nameElement.className =
-                        "all-card-name";
-
-                    nameElement.textContent =
-                        name;
-
-                    row.appendChild(numberElement);
-                    row.appendChild(nameElement);
-
-                    // Click card
-                    row.addEventListener("click", function () {
-                        openCard(cardIndex);
-                    });
-
-                    list.appendChild(row);
+                    set: set.title
 
                 });
-
-                setSection.appendChild(list);
-                container.appendChild(setSection);
-
-                iframe.remove();
-
-                updateNavigation();
-
-            } catch (error) {
-
-                console.error(error);
-
-                const errorBox =
-                    document.createElement("div");
-
-                errorBox.className =
-                    "all-card-error";
-
-                errorBox.textContent =
-                    "Unable to read cards from " +
-                    set.file;
-
-                setSection.appendChild(errorBox);
-                container.appendChild(setSection);
-
-                iframe.remove();
-
             }
+        );
+
+        return {
+
+            set: set,
+
+            cards: setCards
 
         };
+    }
 
-        iframe.onerror = function () {
+    /* =========================================
+       RENDER SET
+    ========================================= */
+
+    function renderSet(setData) {
+
+        const setSection =
+            document.createElement("section");
+
+        setSection.className =
+            "all-cards-set";
+
+        const setTitle =
+            document.createElement("h2");
+
+        setTitle.className =
+            "all-cards-set-title";
+
+        setTitle.textContent =
+            setData.set.title;
+
+        setSection.appendChild(
+            setTitle
+        );
+
+        const list =
+            document.createElement("div");
+
+        list.className =
+            "all-cards-list";
+
+        setData.cards.forEach(
+            function (card) {
+
+                const cardIndex =
+                    allCards.length;
+
+                allCards.push(card);
+
+                const row =
+                    document.createElement("div");
+
+                row.className =
+                    "all-card-row";
+
+                const numberElement =
+                    document.createElement("span");
+
+                numberElement.className =
+                    "all-card-number";
+
+                numberElement.textContent =
+                    card.number;
+
+                const nameElement =
+                    document.createElement("span");
+
+                nameElement.className =
+                    "all-card-name";
+
+                nameElement.textContent =
+                    card.name;
+
+                row.appendChild(
+                    numberElement
+                );
+
+                row.appendChild(
+                    nameElement
+                );
+
+                row.addEventListener(
+                    "click",
+                    function () {
+
+                        openCard(
+                            cardIndex
+                        );
+                    }
+                );
+
+                list.appendChild(row);
+            }
+        );
+
+        setSection.appendChild(
+            list
+        );
+
+        container.appendChild(
+            setSection
+        );
+    }
+
+    /* =========================================
+       LOAD EVERYTHING
+    ========================================= */
+
+    async function loadEverything() {
+
+        container.innerHTML = "";
+
+        try {
+
+            /*
+             * SET 1 + SET 2 load simultaneously.
+             */
+
+            const results =
+                await Promise.all(
+                    sets.map(
+                        function (set) {
+
+                            return loadSet(set);
+                        }
+                    )
+                );
+
+            results.forEach(
+                function (result) {
+
+                    renderSet(result);
+                }
+            );
+
+            updateNavigation();
+
+        } catch (error) {
+
+            console.error(error);
 
             const errorBox =
                 document.createElement("div");
@@ -347,25 +542,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 "all-card-error";
 
             errorBox.textContent =
-                "Unable to load " + set.file;
+                "Unable to load the card list.";
 
-            setSection.appendChild(errorBox);
-            container.appendChild(setSection);
-
-            iframe.remove();
-
-        };
-
+            container.appendChild(
+                errorBox
+            );
+        }
     }
 
-    // --------------------------------------------------
-    // Load everything
-    // --------------------------------------------------
+    /* =========================================
+       KEEP BUTTONS CORRECT ON RESIZE
+    ========================================= */
 
-    container.innerHTML = "";
+    window.addEventListener(
+        "resize",
+        function () {
 
-    sets.forEach(function (set) {
-        loadSet(set);
-    });
+            positionNavigation();
+        }
+    );
+
+    /* =========================================
+       START
+    ========================================= */
+
+    loadEverything();
 
 });
