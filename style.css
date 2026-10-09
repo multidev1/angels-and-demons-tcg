@@ -402,12 +402,9 @@ main {
 /* SET MENU */
 
 .set-menu {
-    display: grid;
-
-    grid-template-columns: repeat(3, 280px);
-
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-
     gap: 35px;
 }
 
@@ -431,6 +428,10 @@ main {
         transform 0.3s ease,
         box-shadow 0.3s ease,
         border-color 0.3s ease;
+	
+    width: 280px;
+    box-sizing: border-box;
+    flex-shrink: 0;	
 }
 
 
